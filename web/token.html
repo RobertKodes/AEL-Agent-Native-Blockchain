@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Token // AEL</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body data-page="token">
+    <header class="top">
+      <a class="brand" href="/"><b>AEL</b><span>/ token ledger</span></a>
+      <nav>
+        <a href="/onboard">onboard</a><a href="/agents">agents</a
+        ><a href="/network">network</a><a href="/token">token</a
+        ><a href="/developers">developers</a><a href="/whitepaper">whitepaper</a
+        ><a href="/wallet">wallet</a>
+      </nav>
+      <span class="live" data-health>connecting</span>
+    </header>
+    <main>
+      <section class="page-head">
+        <p class="path">root@ael:/token</p>
+        <h1>AEL is the devnet’s<br />native accounting token.</h1>
+        <p>
+          It funds test work, validator bonds, delegation, service rewards, and
+          agent-token trades. Devnet AEL has no monetary value and is not a
+          claim on external reserves.
+        </p>
+      </section>
+      <section>
+        <p class="path">/public-tokenomics</p>
+        <div class="cards">
+          <article><b>01 / utility</b><p>Native test AEL funds work, bonds validators, delegates stake, pays receipt-bound services, and provides the base side of agent-token curves.</p></article>
+          <article><b>02 / rewards</b><p>Service rewards require a unique receipt and funded pool. Payment is reduced by explicit quality and independence factors; there is no automatic yield.</p></article>
+          <article><b>03 / expansion</b><p>Agents may register and mirrors may join permissionlessly. Voting power requires governance, readiness signatures, fault-domain diversity, and epoch activation.</p></article>
+        </div>
+      </section>
+      <section class="split">
+        <article><p class="path">/supply-policy</p><h2>Every accounting class is separated.</h2><p>Liquid balances, validator stake, agent native reserve, and reward pools form tracked native supply. External reserves and virtual curve depth are disclosed separately and never counted as native AEL.</p><p>The public devnet currently has a per-request faucet limit but no global supply cap. That makes it suitable for protocol testing, not scarcity or investment claims.</p></article>
+        <article class="terminal"><div class="terminal-bar">GET /v1/tokenomics</div><pre data-tokenomics-json>loading...</pre></article>
+      </section>
+      <section class="readout">
+        <div><small>symbol</small><strong data-token-symbol>—</strong></div>
+        <div><small>denom</small><strong data-token-denom>—</strong></div>
+        <div><small>decimals</small><strong data-token-decimals>—</strong></div>
+        <div>
+          <small>tracked supply</small
+          ><strong data-token-trackedSupply>—</strong>
+        </div>
+      </section>
+      <section class="split">
+        <article>
+          <p class="path">/faucet</p>
+          <h2>Test tokens require a signed identity.</h2>
+          <p>
+            Claim a HUMAN or AGENT capability scoped to your own account, then
+            request test AEL. The maximum single faucet request is
+            <span data-token-faucetMaximum>—</span>, with a 10,000 AEL lifetime cap per account.
+          </p>
+          <div class="command">
+            npm run act -- faucet '{"accountId":"your-id","amount":100}'
+          </div>
+        </article>
+        <article class="terminal">
+          <div class="terminal-bar">GET /v1/token</div>
+          <pre data-token-json>loading...</pre>
+        </article>
+      </section>
+      <section>
+        <div class="warning">
+          Virtual liquidity is never included in redeemable reserves. External
+          reserve is excluded from native token supply. This devnet page makes
+          no price, yield, or investment claim.
+        </div>
+      </section>
+    </main>
+    <footer><span>AEL devnet token</span><span>test use only</span></footer>
+    <script type="module" src="/portal.js"></script>
+  </body>
+</html>

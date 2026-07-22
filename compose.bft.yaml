@@ -1,0 +1,68 @@
+x-validator: &validator
+  build:
+    context: .
+    dockerfile: Dockerfile.consensus
+  environment:
+    AEL_CONSENSUS_CLUSTER_TOKEN: "${AEL_CONSENSUS_CLUSTER_TOKEN:?run npm run consensus-keys first}"
+    AEL_CONSENSUS_STATE: /data/validator-state.json
+  restart: unless-stopped
+
+services:
+  coordinator:
+    build: .
+    ports: ["${AEL_PUBLIC_PORT:-1317}:1317"]
+    environment:
+      AEL_SECURE_MODE: "true"
+      AEL_BOOTSTRAP_TOKEN: "${AEL_BOOTSTRAP_TOKEN:?run npm run consensus-keys first}"
+      AEL_CONSENSUS_CLUSTER_TOKEN: "${AEL_CONSENSUS_CLUSTER_TOKEN}"
+      AEL_NETWORK_VALIDATORS: "${AEL_NETWORK_VALIDATORS}"
+    volumes: [coordinator-state:/data]
+    depends_on:
+      validator-1: { condition: service_healthy }
+      validator-2: { condition: service_healthy }
+      validator-3: { condition: service_healthy }
+      validator-4: { condition: service_healthy }
+    restart: unless-stopped
+  validator-1:
+    <<: *validator
+    hostname: validator-1
+    environment:
+      AEL_CONSENSUS_CLUSTER_TOKEN: "${AEL_CONSENSUS_CLUSTER_TOKEN}"
+      AEL_CONSENSUS_VALIDATOR_ID: validator-1
+      AEL_CONSENSUS_PRIVATE_KEY_B64: "${AEL_CONSENSUS_PRIVATE_KEY_1_B64}"
+      AEL_CONSENSUS_STATE: /data/validator-state.json
+    volumes: [validator-1-state:/data]
+  validator-2:
+    <<: *validator
+    hostname: validator-2
+    environment:
+      AEL_CONSENSUS_CLUSTER_TOKEN: "${AEL_CONSENSUS_CLUSTER_TOKEN}"
+      AEL_CONSENSUS_VALIDATOR_ID: validator-2
+      AEL_CONSENSUS_PRIVATE_KEY_B64: "${AEL_CONSENSUS_PRIVATE_KEY_2_B64}"
+      AEL_CONSENSUS_STATE: /data/validator-state.json
+    volumes: [validator-2-state:/data]
+  validator-3:
+    <<: *validator
+    hostname: validator-3
+    environment:
+      AEL_CONSENSUS_CLUSTER_TOKEN: "${AEL_CONSENSUS_CLUSTER_TOKEN}"
+      AEL_CONSENSUS_VALIDATOR_ID: validator-3
+      AEL_CONSENSUS_PRIVATE_KEY_B64: "${AEL_CONSENSUS_PRIVATE_KEY_3_B64}"
+      AEL_CONSENSUS_STATE: /data/validator-state.json
+    volumes: [validator-3-state:/data]
+  validator-4:
+    <<: *validator
+    hostname: validator-4
+    environment:
+      AEL_CONSENSUS_CLUSTER_TOKEN: "${AEL_CONSENSUS_CLUSTER_TOKEN}"
+      AEL_CONSENSUS_VALIDATOR_ID: validator-4
+      AEL_CONSENSUS_PRIVATE_KEY_B64: "${AEL_CONSENSUS_PRIVATE_KEY_4_B64}"
+      AEL_CONSENSUS_STATE: /data/validator-state.json
+    volumes: [validator-4-state:/data]
+
+volumes:
+  coordinator-state:
+  validator-1-state:
+  validator-2-state:
+  validator-3-state:
+  validator-4-state:

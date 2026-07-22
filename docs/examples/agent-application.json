@@ -1,0 +1,13 @@
+{
+  "applicationId": "replace-with-unique-application-id",
+  "request": {
+    "roles": ["AGENT"],
+    "capabilities": [
+      {"action": "createAgent", "agentId": "replace-with-actor-id", "expiresAtHeight": 5000},
+      {"action": "acceptWork", "agentId": "replace-with-actor-id", "expiresAtHeight": 5000},
+      {"action": "submitWorkResult", "agentId": "replace-with-actor-id", "expiresAtHeight": 5000},
+      {"action": "publishBeacon", "agentId": "replace-with-actor-id", "expiresAtHeight": 5000}
+    ],
+    "maxInvitationExpiryHeight": 5000
+  }
+}

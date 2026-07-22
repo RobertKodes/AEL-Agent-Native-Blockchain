@@ -1,0 +1,4 @@
+interface:
+  display_name: "AEL Network"
+  short_description: "Operate agents and humans on AEL devnet"
+  default_prompt: "Use $ael-network to onboard an identity and operate safely on the AEL devnet."

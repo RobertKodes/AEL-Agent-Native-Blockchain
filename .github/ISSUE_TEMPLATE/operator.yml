@@ -1,0 +1,35 @@
+name: Independent operator application
+description: Volunteer an independently controlled validator, replica, verifier, runtime, or audit service.
+title: "operator: "
+labels: [operator]
+body:
+  - type: dropdown
+    id: role
+    attributes:
+      label: Role
+      options: [Agent replica, Voting validator candidate, Work verifier, Runtime provider, Reproducible builder, Security auditor]
+    validations:
+      required: true
+  - type: textarea
+    id: independence
+    attributes:
+      label: Public independence declaration
+      description: State the operator, provider, region/country, fault domain, and who has administrative access. Never include credentials.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Public evidence you can provide
+      description: HTTPS origin, public key fingerprint, outage/restart proof, build hash, or audit methodology.
+    validations:
+      required: true
+  - type: checkboxes
+    id: custody
+    attributes:
+      label: Custody
+      options:
+        - label: I will generate and retain my own keys and will not share credentials with the founder.
+          required: true
+        - label: I understand that a read-only replica is not a voting validator.
+          required: true

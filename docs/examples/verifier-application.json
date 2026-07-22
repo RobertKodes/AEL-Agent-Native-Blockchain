@@ -1,0 +1,15 @@
+{
+  "applicationId": "replace-with-unique-application-id",
+  "request": {
+    "roles": ["VERIFIER"],
+    "capabilities": [
+      {"action": "voteWork", "expiresAtHeight": 100000}
+    ],
+    "verifier": {
+      "verifierId": "replace-with-actor-id",
+      "bond": 100,
+      "independenceGroup": "truthful-outside-organization"
+    },
+    "maxInvitationExpiryHeight": 100000
+  }
+}

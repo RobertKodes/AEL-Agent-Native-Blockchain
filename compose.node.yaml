@@ -1,0 +1,19 @@
+services:
+  follower:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    environment:
+      AEL_URL: "${AEL_URL:-https://ael-network-production.up.railway.app}"
+      AEL_VALIDATOR_ID: "${AEL_VALIDATOR_ID:?set AEL_VALIDATOR_ID}"
+      AEL_ACTOR_ID: "${AEL_VALIDATOR_ID:?set AEL_VALIDATOR_ID}"
+      AEL_ACTOR_KEY: /run/secrets/validator-key.pem
+      AEL_NODE_PUBLIC_URL: "${AEL_NODE_PUBLIC_URL:-}"
+    ports:
+      - "1417:1417"
+    volumes:
+      - "${AEL_VALIDATOR_KEY_PATH:?set AEL_VALIDATOR_KEY_PATH}:/run/secrets/validator-key.pem:ro"
+      - ael-follower-state:/data
+    restart: unless-stopped
+volumes:
+  ael-follower-state:

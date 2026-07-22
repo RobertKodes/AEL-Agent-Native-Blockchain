@@ -1,0 +1,6 @@
+{
+  "description": "AEL canonical object vector v1",
+  "input": {"z": [3, true, null], "agent_id": "agent-α", "amount": 1615, "nested": {"b": 2, "a": 1}},
+  "canonical": "{\"agent_id\":\"agent-α\",\"amount\":1615,\"nested\":{\"a\":1,\"b\":2},\"z\":[3,true,null]}",
+  "sha256": "91d64856aad7e2968237cdc0f68eb3ca9b987c9ae6de626e12eeb52dd901e04b"
+}

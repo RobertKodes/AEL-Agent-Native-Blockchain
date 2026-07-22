@@ -1,0 +1,13 @@
+FROM node:22-alpine
+WORKDIR /app
+COPY --chown=node:node package.json ./
+COPY --chown=node:node src ./src
+COPY --chown=node:node web ./web
+COPY --chown=node:node dist ./dist
+COPY --chown=root:root ops/node-entrypoint.sh ./ops/node-entrypoint.sh
+USER root
+ENV AEL_ROLE=validator-node AEL_NODE_STATE_PATH=/data/follower-state.json AEL_NODE_PORT=1417
+EXPOSE 1417
+HEALTHCHECK --interval=20s --timeout=3s --start-period=10s --retries=3 CMD node -e "fetch('http://127.0.0.1:1417/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"
+ENTRYPOINT ["sh", "/app/ops/node-entrypoint.sh"]
+CMD ["node", "src/actor-runner.js"]

@@ -1,0 +1,16 @@
+{
+  "applicationId": "replace-with-unique-application-id",
+  "request": {
+    "roles": ["VALIDATOR"],
+    "capabilities": [
+      {"action": "submitValidatorHeartbeat", "expiresAtHeight": 100000}
+    ],
+    "validator": {
+      "validatorId": "replace-with-actor-id",
+      "operatorId": "replace-with-actor-id",
+      "selfBond": 100,
+      "consensusPublicKey": "replace-with-consensus-public-key"
+    },
+    "maxInvitationExpiryHeight": 100000
+  }
+}

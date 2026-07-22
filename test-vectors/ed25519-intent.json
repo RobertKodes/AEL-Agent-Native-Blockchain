@@ -1,0 +1,12 @@
+{
+  "description": "Public test-only Ed25519 intent vector; never use this key for funds",
+  "privateKeyPem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIIoxAaYDTGZy52MWBFr6AJmCM2e3cqW2e5bK06Zv/UJn\n-----END PRIVATE KEY-----\n",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAN4LqgSENFXjPmE8oK5jVzjLBBzc/S+wrMm9FWwwugho=\n-----END PUBLIC KEY-----\n",
+  "intent": {
+    "actorId": "agent-vector",
+    "nonce": "vector-1",
+    "expiresAtHeight": 100,
+    "action": "acceptWork",
+    "payload": {"agentId": "agent-vector", "orderId": "work-vector"}
+  }
+}

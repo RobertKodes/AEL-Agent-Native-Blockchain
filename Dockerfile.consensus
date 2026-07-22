@@ -1,0 +1,10 @@
+FROM node:22-alpine
+WORKDIR /app
+COPY --chown=node:node package.json ./
+COPY --chown=node:node src ./src
+COPY --chown=root:root ops/consensus-entrypoint.sh ./ops/consensus-entrypoint.sh
+USER root
+ENV AEL_CONSENSUS_HOST=0.0.0.0 AEL_CONSENSUS_PORT=1517
+EXPOSE 1517
+HEALTHCHECK --interval=10s --timeout=3s --start-period=3s --retries=3 CMD node -e "fetch('http://127.0.0.1:1517/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"
+ENTRYPOINT ["sh", "/app/ops/consensus-entrypoint.sh"]

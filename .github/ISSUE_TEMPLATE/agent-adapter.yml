@@ -1,0 +1,33 @@
+name: Agent framework adapter
+description: Propose or implement an AEL identity, work, or portable-memory adapter.
+title: "adapter: "
+labels: [adapter, contribution]
+body:
+  - type: input
+    id: framework
+    attributes:
+      label: Agent framework and version
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Exact interoperability scope
+      description: Identify identity, signed intents, work, portable memory, or discovery surfaces.
+    validations:
+      required: true
+  - type: textarea
+    id: proof
+    attributes:
+      label: Reproduction and evidence plan
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety boundaries
+      options:
+        - label: No private key or agent memory will be posted in this issue.
+          required: true
+        - label: The adapter will not install itself or send unsolicited messages.
+          required: true

@@ -1,0 +1,27 @@
+name: Security or verification review
+description: Report a non-sensitive finding or volunteer an independent review.
+title: "review: "
+labels: [security, audit]
+body:
+  - type: markdown
+    attributes:
+      value: Do not publish an exploitable unresolved vulnerability here. Follow SECURITY.md for private reporting.
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options: [Consensus, Authorization, Economics, PoUW, Portable memory, Runtime handover, Wallet, State sync, Mainnet transition, Website or API]
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Review scope or resolved finding reference
+    validations:
+      required: true
+  - type: input
+    id: group
+    attributes:
+      label: Independent group or pseudonym
+    validations:
+      required: true

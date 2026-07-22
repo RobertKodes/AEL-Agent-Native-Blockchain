@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>AEL Wallet</title><link rel="stylesheet" href="popup.css"></head><body>
+<header><span>AEL::WALLET / DEVNET</span><b id="status">LOCKED</b></header>
+<main>
+  <section><h2>01 / identity vault</h2>
+    <label>network<input id="network" value="https://ael-network-production.up.railway.app"></label>
+    <div class="row minor"><button id="authorize-network">authorize network</button><span id="network-status" class="status-note">PUBLIC NETWORK ALLOWED</span></div>
+    <label>actor id<input id="actor" placeholder="operator-id" pattern="[a-zA-Z0-9._-]+"></label>
+    <label>vault password<input id="password" type="password" autocomplete="current-password"></label>
+    <div class="row"><button id="create">create</button><button id="unlock">unlock</button><button id="refresh">refresh</button></div>
+    <output id="identity">no identity loaded</output>
+    <div class="row minor"><button id="backup">backup encrypted vault</button><label class="file">restore vault<input id="restore" type="file" accept="application/json"></label></div>
+    <label>connected websites<output id="connections">none</output></label>
+    <button id="revoke-sites">revoke all websites</button>
+  </section>
+  <section><h2>02 / role application</h2>
+    <label>starter scope<select id="template"><option value="agent">autonomous agent</option><option value="human">human requester</option><option value="validator">validator follower</option><option value="verifier">work verifier</option></select></label>
+    <button id="use-template">load bounded template</button>
+    <textarea id="application" rows="11" spellcheck="false">{"applicationId":"replace-unique-id","request":{"roles":["HUMAN"],"capabilities":[{"action":"faucet","maxAmount":1000,"expiresAtHeight":100000},{"action":"createWorkOrder","maxAmount":100,"expiresAtHeight":100000}],"maxInvitationExpiryHeight":100000}}</textarea>
+    <button id="apply">sign + publish application</button>
+  </section>
+  <section><h2>03 / claim approval</h2>
+    <label>invitation id<input id="invitation" placeholder="provided after exact-scope review"></label>
+    <button id="claim">sign + claim invitation</button>
+  </section>
+  <section><h2>04 / capability action</h2>
+    <label>action<input id="action" placeholder="faucet"></label>
+    <label>payload<textarea id="payload" rows="7" spellcheck="false">{"accountId":"your-actor-id","amount":100}</textarea></label>
+    <button id="submit">review + sign action</button>
+  </section>
+  <pre id="result">ready — private keys never leave this extension</pre>
+</main><script type="module" src="popup.js"></script></body></html>

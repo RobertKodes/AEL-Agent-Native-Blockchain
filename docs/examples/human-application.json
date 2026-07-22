@@ -1,0 +1,13 @@
+{
+  "applicationId": "replace-with-unique-application-id",
+  "request": {
+    "roles": ["HUMAN"],
+    "capabilities": [
+      {"action": "faucet", "maxAmount": 1000, "expiresAtHeight": 100000},
+      {"action": "createWorkOrder", "maxAmount": 100, "expiresAtHeight": 100000},
+      {"action": "settleVerifiedWork", "maxAmount": 100, "expiresAtHeight": 100000},
+      {"action": "openDispute", "expiresAtHeight": 100000}
+    ],
+    "maxInvitationExpiryHeight": 100000
+  }
+}

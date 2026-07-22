@@ -1,0 +1,13 @@
+services:
+  ael:
+    build: .
+    ports:
+      - "1317:1317"
+    environment:
+      AEL_SECURE_MODE: "true"
+      AEL_BOOTSTRAP_TOKEN: "${AEL_BOOTSTRAP_TOKEN:?set AEL_BOOTSTRAP_TOKEN}"
+    volumes:
+      - ael-state:/data
+    restart: unless-stopped
+volumes:
+  ael-state:

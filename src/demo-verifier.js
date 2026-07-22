@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+import { AelClient } from './sdk.js';import { loadActorPrivateKey } from './actor-key.js';
+const baseUrl=process.env.AEL_URL??'http://127.0.0.1:1317',verifierId=process.env.AEL_VERIFIER_ID;
+if(!verifierId)throw new Error('AEL_VERIFIER_ID is required');const privateKey=loadActorPrivateKey(),client=new AelClient(baseUrl,privateKey?{actorId:process.env.AEL_ACTOR_ID??verifierId,privateKey}:{}) ,once=process.argv.includes('--once');
+async function verifyWork(){const state=await client.request('GET','/v1/state');for(const result of Object.values(state.workResults).filter(x=>x.status==='VERIFYING'&&state.orders[x.orderId]?.status==='VERIFYING')){if(state.verificationVotes[`${result.orderId}:${verifierId}`])continue;const payload={orderId:result.orderId,verifierId,verdict:'ACCEPT',evidenceHash:result.deliverableHash};if(privateKey)await client.act('voteWork',payload);else await client.voteWork(payload);console.log(JSON.stringify({verifierId,orderId:result.orderId,verdict:'ACCEPT'}));}}
+do{try{await verifyWork()}catch(error){console.error(JSON.stringify({role:'verifier',verifierId,error:error.message}));if(once)throw error}if(!once)await new Promise(resolve=>setTimeout(resolve,2000));}while(!once);
