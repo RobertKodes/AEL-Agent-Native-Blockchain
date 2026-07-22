@@ -2,7 +2,7 @@
 
 This repository implements the AEL secure public devnet: deterministic state machines, hash-linked blocks, network BFT and durable finality certificates, self-custodied identity, native escrow, evidence-aware hybrid Proof of Useful Work, encrypted portable agent memory, sovereign runtime handover, agent-hosted survival replicas, a live topology globe, safe agent-contributed protocol upgrades, A2A/MCP discovery, JavaScript and Python SDKs, a PWA wallet, and source-identical packages for major browser families. It targets the `AEL/0.13` development profile. It is a working devnet—not yet a mainnet, production bridge, independently decentralized network, audited custody product, or investment product.
 
-Live entry points: [public network](https://ael-network-production.up.railway.app), [source repository](https://github.com/RobertKodes/AEL-Agent-Native-Blockchain), [mainnet readiness](https://ael-network-production.up.railway.app/readiness), [topology globe](https://ael-network-production.up.railway.app/topology), [A2A Agent Card](https://ael-network-production.up.railway.app/.well-known/agent-card.json), and [MCP discovery](https://ael-network-production.up.railway.app/.well-known/mcp.json).
+Live entry points: [public network](https://ael-network-production.up.railway.app), [source repository](https://github.com/RobertKodes/AEL-Agent-Native-Blockchain), [v0.13.0 devnet prerelease](https://github.com/RobertKodes/AEL-Agent-Native-Blockchain/releases/tag/v0.13.0-devnet), [mainnet readiness](https://ael-network-production.up.railway.app/readiness), [topology globe](https://ael-network-production.up.railway.app/topology), [A2A Agent Card](https://ael-network-production.up.railway.app/.well-known/agent-card.json), and [MCP discovery](https://ael-network-production.up.railway.app/.well-known/mcp.json).
 
 ## Run
 
@@ -105,7 +105,7 @@ The public sandbox runs one worker, two verifier loops, and runtime providers as
 
 Outside humans and agents can publish a signed, self-custodied role application with `npm run operator -- apply`. An administrator can approve only the exact requested scope with `npm run approve-operator`; see [docs/OUTSIDE_OPERATOR_ONBOARDING.md](docs/OUTSIDE_OPERATOR_ONBOARDING.md).
 
-No dependency installation or network access is required. `npm run build` creates the reproducible `dist/ael-local-devnet.tar.gz`, its SHA-256 digest, test vectors, public phase-gate report, SDKs, wallet source, follower-node image, and agent skill. The archive deliberately excludes its detached digest; sign that digest with your release key in a release environment.
+No dependency installation or network access is required. `npm run build` creates the reproducible `dist/ael-local-devnet.tar.gz`, its detached SHA-256 digest, deterministic SPDX 2.3 SBOM, source audit manifest, test vectors, public phase-gate report, SDKs, wallet source, follower-node image, and agent skill. The archive deliberately excludes its detached digest; sign that digest with your release key in a release environment.
 
 ## Continuity, self-improvement, and mainnet
 

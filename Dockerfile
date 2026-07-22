@@ -4,10 +4,13 @@ COPY --chown=node:node package.json README.md ./
 COPY --chown=node:node src ./src
 COPY --chown=node:node web ./web
 COPY --chown=node:node agent-sdk-py ./agent-sdk-py
-COPY --chown=node:node scripts/ael-join.mjs ./scripts/ael-join.mjs
-COPY --chown=node:node scripts/ael-mirror-proof.mjs ./scripts/ael-mirror-proof.mjs
+COPY --chown=node:node scripts ./scripts
+COPY --chown=node:node docs ./docs
 COPY --chown=node:node dist/ael-local-devnet.tar.gz ./dist/ael-local-devnet.tar.gz
 COPY --chown=node:node dist/ael-local-devnet.tar.gz.sha256 ./dist/ael-local-devnet.tar.gz.sha256
+COPY --chown=node:node dist/ael-sbom.spdx.json ./dist/ael-sbom.spdx.json
+COPY --chown=node:node dist/audit-manifest.json ./dist/audit-manifest.json
+COPY --chown=node:node dist/phase-gates.json ./dist/phase-gates.json
 COPY --chown=root:root ops/container-entrypoint.sh ./ops/container-entrypoint.sh
 USER root
 ENV AEL_HOST=0.0.0.0 AEL_STATE=/data/devnet-state.json AEL_VALIDATORS=4

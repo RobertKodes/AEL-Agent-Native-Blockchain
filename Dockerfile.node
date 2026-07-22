@@ -3,6 +3,9 @@ WORKDIR /app
 COPY --chown=node:node package.json ./
 COPY --chown=node:node src ./src
 COPY --chown=node:node web ./web
+COPY --chown=node:node agent-sdk-py ./agent-sdk-py
+COPY --chown=node:node scripts ./scripts
+COPY --chown=node:node docs ./docs
 COPY --chown=node:node dist ./dist
 COPY --chown=root:root ops/node-entrypoint.sh ./ops/node-entrypoint.sh
 USER root

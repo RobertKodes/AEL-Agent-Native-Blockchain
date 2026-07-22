@@ -5,7 +5,7 @@
   "type": "module",
   "description": "AEL v0.13 executable agent-native public devnet",
   "scripts": {
-    "pretest": "node scripts/build-browser-extensions.js && node scripts/build-agent-skill.js",
+    "pretest": "node scripts/build.js --skip-tests",
     "build": "node scripts/build.js",
     "test": "node --test --test-concurrency=1 test/*.test.js",
     "simulate": "node src/cli.js simulate",
@@ -24,6 +24,7 @@
     "approve-operator": "node scripts/ael-approve-application.js",
     "act": "node scripts/ael-act.js",
     "audit-manifest": "node scripts/audit-manifest.js",
+    "sbom": "node scripts/audit-manifest.js dist/audit-manifest.json && node scripts/build-sbom.js",
     "wallet-packages": "node scripts/build-browser-extensions.js",
     "skill-package": "node scripts/build-agent-skill.js",
     "scan-secrets": "node scripts/scan-secrets.js",
