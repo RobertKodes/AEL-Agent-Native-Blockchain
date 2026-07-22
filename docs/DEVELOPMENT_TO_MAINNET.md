@@ -38,7 +38,7 @@ Not yet earned:
 
 Tasks:
 
-1. Publish the sanitized source repository and tag `v0.13.0-devnet`.
+1. Continue publishing sanitized, reproducible devnet releases (`v0.13.1-devnet` is the extension-first wallet release).
 2. Add CI on a free GitHub Actions allowance: Node tests, syntax checks, archive rebuild, audit-manifest comparison, browser package validation, and secret scanning.
 3. Publish the release archive digest, SBOM digest, test count, and finality certificate.
 4. File every discovered issue publicly with severity and owner.

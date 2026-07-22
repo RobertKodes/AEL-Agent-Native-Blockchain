@@ -1,31 +1,49 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>AEL Wallet</title><link rel="stylesheet" href="popup.css"></head><body>
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>AEL Wallet</title><link rel="stylesheet" href="popup.css"></head>
+<body>
 <header><span>AEL::WALLET / DEVNET</span><b id="status">LOCKED</b></header>
 <main>
-  <section><h2>01 / identity vault</h2>
+  <section class="hero">
+    <p class="eyebrow">NATIVE AEL IDENTITY</p>
+    <h1>Create once. Join in one step.</h1>
+    <p>Your Ed25519 private key is encrypted in this browser. AEL receives only your public identity and actions you approve.</p>
+  </section>
+  <section><h2>01 / create or unlock</h2>
     <label>network<input id="network" value="https://ael-network-production.up.railway.app"></label>
-    <div class="row minor"><button id="authorize-network">authorize network</button><span id="network-status" class="status-note">PUBLIC NETWORK ALLOWED</span></div>
-    <label>actor id<input id="actor" placeholder="operator-id" pattern="[a-zA-Z0-9._-]+"></label>
-    <label>vault password<input id="password" type="password" autocomplete="current-password"></label>
-    <div class="row"><button id="create">create</button><button id="unlock">unlock</button><button id="refresh">refresh</button></div>
+    <div class="row minor"><button id="authorize-network">authorize custom network</button><span id="network-status" class="status-note">PUBLIC DEVNET ALLOWED</span></div>
+    <label>identity type<select id="role"><option value="HUMAN">human wallet</option><option value="AGENT">autonomous agent</option></select></label>
+    <label>public identity ID<input id="actor" placeholder="my-ael-id" pattern="[a-zA-Z0-9._-]+"></label>
+    <label>vault password<input id="password" type="password" minlength="10" autocomplete="current-password"></label>
+    <label class="consent"><input id="disclosure" type="checkbox"><span>I understand this is a public devnet, AEL is a test asset with no monetary value, and my encrypted vault must be backed up.</span></label>
+    <div class="row"><button id="create-join" class="primary">create + join devnet</button><button id="unlock">unlock</button><button id="refresh">refresh</button></div>
     <output id="identity">no identity loaded</output>
+    <div class="readout"><span>balance</span><b id="balance">—</b><span>network height</span><b id="height">—</b></div>
     <div class="row minor"><button id="backup">backup encrypted vault</button><label class="file">restore vault<input id="restore" type="file" accept="application/json"></label></div>
-    <label>connected websites<output id="connections">none</output></label>
+  </section>
+  <section><h2>02 / connected websites</h2>
+    <label>approved origins<output id="connections">none</output></label>
     <button id="revoke-sites">revoke all websites</button>
   </section>
-  <section><h2>02 / role application</h2>
-    <label>starter scope<select id="template"><option value="agent">autonomous agent</option><option value="human">human requester</option><option value="validator">validator follower</option><option value="verifier">work verifier</option></select></label>
-    <button id="use-template">load bounded template</button>
-    <textarea id="application" rows="11" spellcheck="false">{"applicationId":"replace-unique-id","request":{"roles":["HUMAN"],"capabilities":[{"action":"faucet","maxAmount":1000,"expiresAtHeight":100000},{"action":"createWorkOrder","maxAmount":100,"expiresAtHeight":100000}],"maxInvitationExpiryHeight":100000}}</textarea>
-    <button id="apply">sign + publish application</button>
-  </section>
-  <section><h2>03 / claim approval</h2>
-    <label>invitation id<input id="invitation" placeholder="provided after exact-scope review"></label>
-    <button id="claim">sign + claim invitation</button>
-  </section>
-  <section><h2>04 / capability action</h2>
-    <label>action<input id="action" placeholder="faucet"></label>
-    <label>payload<textarea id="payload" rows="7" spellcheck="false">{"accountId":"your-actor-id","amount":100}</textarea></label>
-    <button id="submit">review + sign action</button>
-  </section>
+  <details>
+    <summary>advanced operator tools</summary>
+    <section><h2>03 / role application</h2>
+      <label>starter scope<select id="template"><option value="agent">autonomous agent</option><option value="human">human requester</option><option value="validator">validator follower</option><option value="verifier">work verifier</option></select></label>
+      <button id="use-template">load bounded template</button>
+      <textarea id="application" rows="11" spellcheck="false">{"applicationId":"replace-unique-id","request":{"roles":["HUMAN"],"capabilities":[{"action":"faucet","maxAmount":1000,"expiresAtHeight":100000},{"action":"transfer","maxAmount":100,"expiresAtHeight":100000}],"maxInvitationExpiryHeight":100000}}</textarea>
+      <button id="apply">review + sign application</button>
+    </section>
+    <section><h2>04 / claim approval</h2>
+      <label>invitation id<input id="invitation" placeholder="returned after exact-scope review"></label>
+      <button id="claim">review + claim invitation</button>
+    </section>
+    <section><h2>05 / capability action</h2>
+      <label>action<input id="action" placeholder="transfer"></label>
+      <label>payload<textarea id="payload" rows="7" spellcheck="false">{"fromAccount":"your-actor-id","toAccount":"recipient-id","amount":1}</textarea></label>
+      <button id="submit">review + sign action</button>
+    </section>
+  </details>
   <pre id="result">ready — private keys never leave this extension</pre>
-</main><script type="module" src="popup.js"></script></body></html>
+  <p class="fineprint"><a href="privacy.html" target="_blank">privacy + data disclosure</a> · Never paste this vault into Phantom, MetaMask, or a website.</p>
+</main><script type="module" src="popup.js"></script></body>
+</html>

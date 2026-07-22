@@ -1,0 +1,62 @@
+name: AEL protocol CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Node ${{ matrix.node }} conformance
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          package-manager-cache: false
+      - run: npm test
+
+  security-and-release:
+    name: Secret scan, wallet validation, reproducible release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - run: npm run scan-secrets
+      - run: npm run verify-reproducible
+      - run: npx --yes web-ext@10.5.0 lint --source-dir dist/browser-extensions/firefox
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ael-v0.13.1-devnet-release
+          path: |
+            dist/ael-local-devnet.tar.gz
+            dist/ael-local-devnet.tar.gz.sha256
+            dist/audit-manifest.json
+            dist/ael-sbom.spdx.json
+            dist/phase-gates.json
+            web/downloads/ael-wallet-release.json
+            web/downloads/ael-wallet-chrome-store.zip
+            web/downloads/ael-wallet-edge-store.zip
+            web/downloads/ael-wallet-firefox.zip
+            web/downloads/ael-wallet-safari-source.zip
+            wallet-extension/store/*.png
+            wallet-extension/store/listing.json
+            wallet-extension/store/reviewer-notes.md
+          if-no-files-found: error
+          retention-days: 14

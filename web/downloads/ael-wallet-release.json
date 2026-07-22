@@ -1,0 +1,57 @@
+{
+  "schema": "AEL-WALLET-EXTENSION-RELEASE/2",
+  "version": "0.7.0",
+  "generatedFrom": "wallet-extension/manifest.json",
+  "artifacts": {
+    "ael-wallet-chrome-store.zip": {
+      "sha256": "06ba09a37526aa98a7565a83e6e3c3a4c034b681963a220f1233303582efb3fe",
+      "bytes": 36173
+    },
+    "ael-wallet-edge-store.zip": {
+      "sha256": "06ba09a37526aa98a7565a83e6e3c3a4c034b681963a220f1233303582efb3fe",
+      "bytes": 36173
+    },
+    "ael-wallet-chromium.zip": {
+      "sha256": "06ba09a37526aa98a7565a83e6e3c3a4c034b681963a220f1233303582efb3fe",
+      "bytes": 36173
+    },
+    "ael-wallet-firefox.zip": {
+      "sha256": "49f178aa300781287a95b1ffad4ab13b5fb3d62f525e3a0115918d16d2710b2a",
+      "bytes": 36295
+    },
+    "ael-wallet-safari-source.zip": {
+      "sha256": "be783f71e9ff2dd47e0bee736e33058bc54ad6c374f7e0806ba63066bcaeb5f8",
+      "bytes": 36158
+    },
+    "ael-wallet-extension.zip": {
+      "sha256": "06ba09a37526aa98a7565a83e6e3c3a4c034b681963a220f1233303582efb3fe",
+      "bytes": 36173
+    }
+  },
+  "packages": {
+    "chrome": "ael-wallet-chrome-store.zip",
+    "edge": "ael-wallet-edge-store.zip",
+    "brave": "ael-wallet-chrome-store.zip",
+    "opera": "ael-wallet-chrome-store.zip",
+    "firefox": "ael-wallet-firefox.zip",
+    "safariSource": "ael-wallet-safari-source.zip"
+  },
+  "distribution": {
+    "chrome": "REQUIRES_CHROME_WEB_STORE_REVIEW",
+    "edge": "REQUIRES_EDGE_ADDONS_REVIEW",
+    "firefox": "REQUIRES_MOZILLA_SIGNATURE",
+    "safari": "REQUIRES_APPLE_DEVELOPER_SIGNING"
+  },
+  "permissions": {
+    "required": [
+      "storage"
+    ],
+    "optionalHosts": [
+      "https://*/*"
+    ],
+    "remoteCode": false,
+    "telemetry": false
+  },
+  "privateKeyHandling": "LOCAL_AES_GCM_ENCRYPTED_VAULT_ONLY",
+  "installPolicy": "A package hash is not a store approval. Only an official LIVE listing may be shown as one-click install."
+}

@@ -32,13 +32,13 @@ test('terminal portal, public network data, downloads, and complete demo are ava
   const topology=await fetch(`${base}/v1/topology`).then(r=>r.json());assert.equal(topology.schema,'AEL-NETWORK-TOPOLOGY/1');assert.equal(topology.summary.consensusValidators,4);assert.match(topology.locationPolicy,/never geolocates/i);
   const readiness=await fetch(`${base}/v1/mainnet/readiness`).then(r=>r.json());assert.equal(readiness.schema,'AEL-MAINNET-READINESS/1');assert.equal(readiness.ready,false);assert.ok(readiness.summary.blocking.includes('networked-bft'));
   const validation=await fetch(`${base}/v1/validation`).then(r=>r.json());assert.equal(validation.schema,'AEL-POUW-POLICY/1');assert.match(validation.strategy,/EVIDENCE/);
-  const manifest=await fetch(`${base}/v1/manifest`).then(r=>r.json());assert.equal(manifest.chainId,'ael-devnet-1');assert.equal(manifest.signing.privateKeysAccepted,false);assert.match(manifest.discovery.tokenomics,/\/v1\/tokenomics$/);assert.match(manifest.onboarding.operatorGuide,/\/operators$/);
+  const manifest=await fetch(`${base}/v1/manifest`).then(r=>r.json());assert.equal(manifest.chainId,'ael-devnet-1');assert.equal(manifest.signing.privateKeysAccepted,false);assert.match(manifest.discovery.tokenomics,/\/v1\/tokenomics$/);assert.match(manifest.discovery.walletCompatibility,/\/v1\/wallet\/compatibility$/);assert.match(manifest.downloads.walletReleaseManifest,/\/downloads\/ael-wallet-release\.json$/);assert.match(manifest.onboarding.operatorGuide,/\/operators$/);
   const replicaRegistry=await fetch(`${base}/v1/replicas`).then(r=>r.json());assert.equal(replicaRegistry.schema,'AEL-REPLICA-REGISTRY/1');assert.equal(replicaRegistry.minimumRecommendedOrigins,2);assert.deepEqual(replicaRegistry.replicas,[]);assert.match(manifest.discovery.replicas,/\/v1\/replicas$/);
   const wellKnown=await fetch(`${base}/.well-known/ael.json`).then(r=>r.json());assert.equal(wellKnown.schema,'AEL-NETWORK-MANIFEST/1');
   const walletManifestResponse=await fetch(`${base}/wallet.webmanifest`),walletManifest=await walletManifestResponse.json();assert.match(walletManifestResponse.headers.get('content-type'),/application\/manifest\+json/);assert.equal(walletManifest.display,'standalone');assert.equal(walletManifest.start_url,'/wallet?source=installed');
   const serviceWorker=await fetch(`${base}/wallet-sw.js`);assert.equal(serviceWorker.status,200);assert.equal(serviceWorker.headers.get('service-worker-allowed'),'/');assert.match(await serviceWorker.text(),/ael-wallet-shell-v3/);
-  const walletHtml=await fetch(`${base}/wallet`).then(r=>r.text());assert.match(walletHtml,/rel="manifest" href="\/wallet\.webmanifest"/);assert.match(walletHtml,/data-install-wallet/);
-  assert.match(walletHtml,/consent-gated dApps/i);const walletRelease=await fetch(`${base}/v1/wallet/releases`).then(r=>r.json());assert.equal(walletRelease.version,'0.6.0');assert.equal(walletRelease.webApp.status,'LIVE');assert.equal(walletRelease.extensions.chrome.installUrl,null);assert.equal(walletRelease.security.rawSigningApi,false);
+  const walletHtml=await fetch(`${base}/wallet`).then(r=>r.text());assert.match(walletHtml,/rel="manifest" href="\/wallet\.webmanifest"/);assert.match(walletHtml,/data-wallet-channel="chrome"/);
+  assert.match(walletHtml,/consent-gated dApps/i);assert.match(walletHtml,/Phantom does not let users add custom networks/i);const walletRelease=await fetch(`${base}/v1/wallet/releases`).then(r=>r.json());assert.equal(walletRelease.version,'0.7.0');assert.equal(walletRelease.webApp.status,'LIVE');assert.equal(walletRelease.extensions.chrome.installUrl,null);assert.match(walletRelease.extensions.chrome.sha256,/^[a-f0-9]{64}$/);assert.equal(walletRelease.security.rawSigningApi,false);const compatibility=await fetch(`${base}/v1/wallet/compatibility`).then(r=>r.json());assert.equal(compatibility.schema,'AEL-WALLET-COMPATIBILITY/1');assert.equal(compatibility.wallets.phantom.nativeNetworkImport,false);assert.equal(compatibility.wallets.metamask.customNetworkImport,false);assert.equal(compatibility.wallets.walletConnect.customNamespacePossible,true);
   assert.match(walletHtml,/id="agent-referrals"/);assert.match(walletHtml,/id="referral-qualified"/);
   const agentsHtml=await fetch(`${base}/agents`).then(r=>r.text());assert.match(agentsHtml,/data-referrals/);assert.match(agentsHtml,/referral-ledger/);
   assert.match(agentsHtml,/two independently controlled agent operators/i);assert.match(agentsHtml,/independent operator page/i);
@@ -51,10 +51,23 @@ test('terminal portal, public network data, downloads, and complete demo are ava
   for(const route of ['/downloads/ael-sdk.js','/downloads/canonical.js','/downloads/ael-sdk.py','/downloads/ael-join.mjs','/downloads/ael-agent-host.mjs','/downloads/ael-mirror-proof.mjs','/downloads/validator-node.js','/downloads/ael-wallet-chromium.zip','/downloads/ael-wallet-firefox.zip','/downloads/ael-wallet-safari-source.zip','/downloads/wallet-extension.zip','/downloads/ael-network-skill.zip','/downloads/public-launch-article.md','/downloads/x-launch-thread.md','/downloads/development-to-mainnet.md','/downloads/zero-budget-growth.md','/downloads/agent-operator-handoff.md','/downloads/sbom.spdx.json','/downloads/audit-manifest.json','/downloads/mainnet-phase-gates.json']){
     const response=await fetch(`${base}${route}`); assert.equal(response.status,200,route); assert.ok((await response.arrayBuffer()).byteLength>100,route);
   }
+  for(const route of ['/downloads/ael-wallet-chrome-store.zip','/downloads/ael-wallet-edge-store.zip']){const response=await fetch(`${base}${route}`);assert.equal(response.status,200,route);assert.ok((await response.arrayBuffer()).byteLength>100,route)}
+  const walletBuild=await fetch(`${base}/downloads/ael-wallet-release.json`).then(r=>r.json());assert.equal(walletBuild.version,'0.7.0');assert.match(walletBuild.artifacts['ael-wallet-firefox.zip'].sha256,/^[a-f0-9]{64}$/);
   const releaseHash=await fetch(`${base}/downloads/release.sha256`).then(r=>r.text());assert.match(releaseHash,/^[a-f0-9]{64}  dist\/ael-local-devnet\.tar\.gz\n$/);
-  const sbom=await fetch(`${base}/downloads/sbom.spdx.json`).then(r=>r.json());assert.equal(sbom.spdxVersion,'SPDX-2.3');assert.equal(sbom.packages[0].versionInfo,'0.13.0');assert.equal(sbom.packages[0].filesAnalyzed,false);
+  const sbom=await fetch(`${base}/downloads/sbom.spdx.json`).then(r=>r.json());assert.equal(sbom.spdxVersion,'SPDX-2.3');assert.equal(sbom.packages[0].versionInfo,'0.13.1');assert.equal(sbom.packages[0].filesAnalyzed,false);
   const result=await fetch(`${base}/v1/demo`,{method:'POST',headers:{'content-type':'application/json'},body:'{}'}).then(r=>r.json());
   const reserve=await fetch(`${base}/v1/agents/${result.agentId}/reserve`).then(r=>r.json()); assert.equal(reserve.redeemableReserve,450);
+});
+
+test('wallet release exposes only a LIVE official store listing',async t=>{
+  const app=createAelServer({port:0,statePath:join(mkdtempSync(join(tmpdir(),'ael-wallet-release-')),'state.json')}),address=await app.listen(),base=`http://127.0.0.1:${address.port}`;t.after(()=>app.close());
+  const common={channel:'CHROME',version:'0.7.0',auditorId:'auditor-one',independenceGroup:'review-one',releaseHash:'a'.repeat(64),evidenceHash:'b'.repeat(64),attestedAtHeight:1};
+  app.engine.state.walletDistributionAttestations={reviewed:{...common,status:'REVIEWED',listingUrl:'https://chromewebstore.google.com/detail/ael-wallet/official-id'}};
+  assert.equal((await fetch(`${base}/v1/wallet/releases`).then(r=>r.json())).extensions.chrome.installUrl,null);
+  app.engine.state.walletDistributionAttestations.live={...common,status:'LIVE',attestedAtHeight:2,listingUrl:'https://chromewebstore.google.com/detail/ael-wallet/official-id'};
+  assert.equal((await fetch(`${base}/v1/wallet/releases`).then(r=>r.json())).extensions.chrome.installUrl,'https://chromewebstore.google.com/detail/ael-wallet/official-id');
+  app.engine.state.walletDistributionAttestations.live.listingUrl='https://lookalike.example/detail/ael-wallet';
+  assert.equal((await fetch(`${base}/v1/wallet/releases`).then(r=>r.json())).extensions.chrome.installUrl,null);
 });
 
 test('runtime marketplace requires distinct fault domains and fails over', async t => {

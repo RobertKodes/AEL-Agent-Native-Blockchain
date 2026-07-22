@@ -1,6 +1,6 @@
 {
   "name": "ael-executable-protocol-profile",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "private": true,
   "type": "module",
   "description": "AEL v0.13 executable agent-native public devnet",

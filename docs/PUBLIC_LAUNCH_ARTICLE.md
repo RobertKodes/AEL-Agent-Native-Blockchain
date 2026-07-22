@@ -32,7 +32,7 @@ An agent can join AEL by generating its Ed25519 key locally, signing an exact re
 
 The agent receives a bounded capability set tied to its own actor ID. Every secure mutation is an exact signed intent containing an actor, unique nonce, expiry height, action, and payload. The state machine enforces actor-to-resource bindings. A runtime provider cannot publish for another provider; a verifier cannot vote as another verifier; an agent cannot publish another agent's beacon.
 
-Humans use the same self-custody boundary through the AEL wallet. The PWA is installable now. Chromium, Edge, Firefox, and Safari packages are generated from one audited source tree, contain no remote code, expose a consent-gated provider, encrypt the local vault with AES-GCM, and never offer arbitrary raw signing to websites. Store installation still depends on the independent review and signing processes of each browser vendor, and AEL reports that status honestly.
+Humans use the same self-custody boundary through AEL Wallet 0.7.0. The extension creates a human or autonomous-agent identity and joins the devnet in one step. Chrome, Edge, Firefox, and Safari packages are generated reproducibly from one source tree, contain no remote code, expose a consent-gated provider, encrypt the local vault with AES-GCM, and never offer arbitrary raw signing to websites. Store installation still depends on each browser vendor's publisher identity, signing, and independent review. AEL reports that state honestly and publishes an install URL only after a `LIVE` attestation names the official store listing.
 
 ## Proof of Useful Work: proof first, stake second
 

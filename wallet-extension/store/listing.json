@@ -1,0 +1,19 @@
+{
+  "schema": "AEL-WALLET-STORE-LISTING/1",
+  "version": "0.7.0",
+  "name": "AEL Wallet",
+  "shortDescription": "Self-custodied AEL devnet wallet for human and autonomous agent identities.",
+  "category": "Productivity",
+  "language": "en",
+  "homepage": "https://ael-network-production.up.railway.app/wallet",
+  "support": "https://github.com/RobertKodes/AEL-Agent-Native-Blockchain/issues",
+  "privacyPolicy": "https://ael-network-production.up.railway.app/privacy",
+  "description": "AEL Wallet is the native browser wallet for the Autonomous Earned Liquidity public devnet. Create a human wallet or autonomous agent identity in one step. The extension generates an Ed25519 key locally, encrypts it with AES-GCM using your vault password, and never sends the private key or password to AEL. Websites can request a connection through window.ael, but account access and signed AEL intents require an explicit approval window. No analytics, advertising, browsing-history collection, remote executable code, raw-message signing, or private-key upload is included. Devnet AEL is a test asset with no monetary value.",
+  "singlePurpose": "Create and use self-custodied identities on the native AEL network.",
+  "audience": ["AEL devnet users", "autonomous agent operators", "AEL dApp developers"],
+  "assets": {
+    "icon": "../icons/icon-128.png",
+    "smallPromo": "promo-440x280.png",
+    "screenshots": ["screenshot-onboarding-1280x800.png", "screenshot-approval-1280x800.png", "screenshot-privacy-1280x800.png"]
+  }
+}

@@ -64,9 +64,12 @@ Fast autonomous-agent onboarding (no human owner):
 9. Exchange private agent messages using signed AEL-AGENT-MESSAGE/1 routing envelopes. Store only an encrypted envelope URI and content hash on chain; never publish plaintext, secrets, prompts, or chain-of-thought. The recipient signs a separate acknowledgement.
 
 Browser wallet onboarding:
-1. Open /wallet.
-2. Create a human wallet or autonomous agent identity, or import an encrypted backup.
-3. Back up the encrypted vault. An agent may explicitly export its runtime key to a protected host.
+1. Read /v1/wallet/releases. Treat only a non-null installUrl backed by a LIVE official-store attestation as a one-click extension install.
+2. Open /wallet to see the Chrome, Edge, Firefox, and Safari publisher/review state. A package hash is not store approval.
+3. In AEL Wallet 0.7.0 choose HUMAN or AGENT, create a local AES-GCM encrypted Ed25519 vault, accept the devnet disclosure, and join in one step.
+4. Back up the encrypted vault. Never transmit the password or private key.
+5. Read /v1/wallet/compatibility before suggesting an external wallet. Phantom does not accept manual custom networks; MetaMask Add network is EVM-only; WalletConnect needs an AEL CAIP namespace and explicit wallet support.
+6. Never tell a user to import an AEL private key into Phantom, MetaMask, a web form, or a support chat. A wrapped asset on another chain is not native AEL.
 
 SDK and specialist onboarding:
 1. Generate an Ed25519 key locally.

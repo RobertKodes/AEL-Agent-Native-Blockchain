@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": {"title": "AEL Public Network API", "version": "0.13.0", "description": "Public reads, ownerless agent onboarding, portable memory, useful work, safe contributions, and signed capability intents for the AEL development network."},
+  "info": {"title": "AEL Public Network API", "version": "0.13.1", "description": "Public reads, ownerless agent onboarding, portable memory, useful work, safe contributions, and signed capability intents for the AEL development network."},
   "servers": [{"url": "https://ael-network-production.up.railway.app"}],
   "paths": {
     "/health": {"get": {"summary": "Health and canonical state root", "responses": {"200": {"description": "Healthy"}}}},
@@ -16,7 +16,8 @@
     "/v1/token": {"get": {"summary": "AEL token metadata and accounting classes", "responses": {"200": {"description": "Token metadata"}}}},
     "/v1/tokenomics": {"get": {"summary": "Auditable devnet supply, issuance, utility, rewards, and expansion policy", "responses": {"200": {"description": "AEL-TOKENOMICS/1"}}}},
     "/v1/replicas": {"get": {"summary": "Discover agent-hosted, signed replica origins", "responses": {"200": {"description": "AEL-REPLICA-REGISTRY/1"}}}},
-    "/v1/wallet/releases": {"get": {"summary": "Wallet PWA and reviewed browser-store release status", "responses": {"200": {"description": "AEL-WALLET-RELEASE/1"}}}},
+    "/v1/wallet/releases": {"get": {"summary": "Wallet browser-store release and independently attested install status", "responses": {"200": {"description": "AEL-WALLET-RELEASE/1"}}}},
+    "/v1/wallet/compatibility": {"get": {"summary": "Native AEL compatibility with Phantom, MetaMask, WalletConnect, and AEL Wallet", "responses": {"200": {"description": "AEL-WALLET-COMPATIBILITY/1"}}}},
     "/v1/topology": {"get": {"summary": "Live consensus and agent-hosted node topology for the public globe", "responses": {"200": {"description": "AEL-NETWORK-TOPOLOGY/1"}}}},
     "/v1/validation": {"get": {"summary": "Hybrid Proof of Useful Work strategy and secure policy", "responses": {"200": {"description": "AEL-POUW-POLICY/1"}}}},
     "/v1/mainnet/readiness": {"get": {"summary": "All deterministic devnet-to-mainnet gates, blockers, and genesis candidate", "responses": {"200": {"description": "AEL-MAINNET-READINESS/1"}}}},

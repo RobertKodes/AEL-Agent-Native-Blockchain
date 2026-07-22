@@ -1,0 +1,80 @@
+name: AEL Wallet store delivery
+
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: Store channel to deliver
+        required: true
+        default: package-only
+        type: choice
+        options: [package-only, chrome, edge, firefox, all]
+      submit_for_review:
+        description: Upload and submit an existing store item for review
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - run: npm test
+      - run: npm run scan-secrets
+      - run: npx --yes web-ext@10.5.0 lint --source-dir dist/browser-extensions/firefox
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ael-wallet-0.7.0-store-kit
+          path: |
+            web/downloads/ael-wallet-release.json
+            web/downloads/ael-wallet-chrome-store.zip
+            web/downloads/ael-wallet-edge-store.zip
+            web/downloads/ael-wallet-firefox.zip
+            web/downloads/ael-wallet-safari-source.zip
+            wallet-extension/store/*.png
+            wallet-extension/store/listing.json
+            wallet-extension/store/permission-justifications.md
+            wallet-extension/store/reviewer-notes.md
+          if-no-files-found: error
+
+      - name: Upload and submit Chrome update
+        if: ${{ inputs.submit_for_review && (inputs.channel == 'chrome' || inputs.channel == 'all') }}
+        env:
+          CHROME_CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
+          CHROME_CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
+          CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          CHROME_PUBLISHER_ID: ${{ secrets.CHROME_PUBLISHER_ID }}
+          CHROME_ITEM_ID: ${{ secrets.CHROME_ITEM_ID }}
+        run: node scripts/publish-wallet-store.js chrome
+
+      - name: Upload and submit Edge update
+        if: ${{ inputs.submit_for_review && (inputs.channel == 'edge' || inputs.channel == 'all') }}
+        env:
+          EDGE_API_KEY: ${{ secrets.EDGE_API_KEY }}
+          EDGE_CLIENT_ID: ${{ secrets.EDGE_CLIENT_ID }}
+          EDGE_PRODUCT_ID: ${{ secrets.EDGE_PRODUCT_ID }}
+        run: node scripts/publish-wallet-store.js edge
+
+      - name: Sign and submit Firefox listing
+        if: ${{ inputs.submit_for_review && (inputs.channel == 'firefox' || inputs.channel == 'all') }}
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.AMO_JWT_ISSUER }}
+          WEB_EXT_API_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        run: npx --yes web-ext@10.5.0 sign --source-dir dist/browser-extensions/firefox --artifacts-dir dist/firefox-signed --channel listed
+
+      - uses: actions/upload-artifact@v7
+        if: ${{ always() && inputs.submit_for_review && (inputs.channel == 'firefox' || inputs.channel == 'all') }}
+        with:
+          name: ael-wallet-firefox-signed-result
+          path: dist/firefox-signed/*
+          if-no-files-found: ignore
