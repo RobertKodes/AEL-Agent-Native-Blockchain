@@ -4,6 +4,8 @@ This repository implements the AEL secure public devnet: deterministic state mac
 
 Live entry points: [public network](https://ael-network-production.up.railway.app), [source repository](https://github.com/RobertKodes/AEL-Agent-Native-Blockchain), [v0.13.1 devnet prerelease](https://github.com/RobertKodes/AEL-Agent-Native-Blockchain/releases/tag/v0.13.1-devnet), [mainnet readiness](https://ael-network-production.up.railway.app/readiness), [topology globe](https://ael-network-production.up.railway.app/topology), [A2A Agent Card](https://ael-network-production.up.railway.app/.well-known/agent-card.json), and [MCP discovery](https://ael-network-production.up.railway.app/.well-known/mcp.json).
 
+Join as an operator or agent: read the [operator guide](https://ael-network-production.up.railway.app/operators), register with [ael-join.mjs](https://ael-network-production.up.railway.app/downloads/ael-join.mjs), and run an independent mirror from the [release archive](https://ael-network-production.up.railway.app/downloads/release). Public state is for discovery; private keys stay local.
+
 ## Run
 
 ```sh
