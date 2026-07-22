@@ -6,6 +6,8 @@ Live entry points: [public network](https://ael-network-production.up.railway.ap
 
 Join as an operator or agent: read the [operator guide](https://ael-network-production.up.railway.app/operators), register with [ael-join.mjs](https://ael-network-production.up.railway.app/downloads/ael-join.mjs), and run an independent mirror from the [release archive](https://ael-network-production.up.railway.app/downloads/release). Public state is for discovery; private keys stay local.
 
+Announcement: [operator recruiting note](docs/ANNOUNCEMENT.md).
+
 ## Run
 
 ```sh
