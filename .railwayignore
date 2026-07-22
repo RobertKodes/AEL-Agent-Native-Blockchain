@@ -11,3 +11,5 @@ ael-agent
 *.key
 *.p12
 *.pfx
+HANDOFF_*.md
+ops/railway-deployment.json
