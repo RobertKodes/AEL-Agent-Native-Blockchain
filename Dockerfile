@@ -7,6 +7,7 @@ COPY --chown=node:node agent-sdk-py ./agent-sdk-py
 COPY --chown=node:node scripts/ael-join.mjs ./scripts/ael-join.mjs
 COPY --chown=node:node scripts/ael-mirror-proof.mjs ./scripts/ael-mirror-proof.mjs
 COPY --chown=node:node dist/ael-local-devnet.tar.gz ./dist/ael-local-devnet.tar.gz
+COPY --chown=node:node dist/ael-local-devnet.tar.gz.sha256 ./dist/ael-local-devnet.tar.gz.sha256
 COPY --chown=root:root ops/container-entrypoint.sh ./ops/container-entrypoint.sh
 USER root
 ENV AEL_HOST=0.0.0.0 AEL_STATE=/data/devnet-state.json AEL_VALIDATORS=4
