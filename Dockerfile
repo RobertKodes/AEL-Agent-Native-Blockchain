@@ -1,16 +1,26 @@
+FROM node:22-alpine AS builder
+WORKDIR /app
+COPY package.json README.md LICENSE CONTRIBUTING.md SECURITY.md CODE_OF_CONDUCT.md ./
+COPY src ./src
+COPY web ./web
+COPY agent-sdk-py ./agent-sdk-py
+COPY scripts ./scripts
+COPY docs ./docs
+COPY skills ./skills
+COPY wallet-extension ./wallet-extension
+COPY test ./test
+COPY test-vectors ./test-vectors
+COPY ci ./ci
+COPY ops ./ops
+COPY .github ./.github
+COPY Dockerfile Dockerfile.actor Dockerfile.node Dockerfile.consensus ./
+COPY compose*.yaml ./
+COPY .dockerignore .railwayignore .gitignore ./
+RUN npm install --ignore-scripts && node scripts/build.js --skip-tests
+
 FROM node:22-alpine
 WORKDIR /app
-COPY --chown=node:node package.json README.md ./
-COPY --chown=node:node src ./src
-COPY --chown=node:node web ./web
-COPY --chown=node:node agent-sdk-py ./agent-sdk-py
-COPY --chown=node:node scripts ./scripts
-COPY --chown=node:node docs ./docs
-COPY --chown=node:node dist/ael-local-devnet.tar.gz ./dist/ael-local-devnet.tar.gz
-COPY --chown=node:node dist/ael-local-devnet.tar.gz.sha256 ./dist/ael-local-devnet.tar.gz.sha256
-COPY --chown=node:node dist/ael-sbom.spdx.json ./dist/ael-sbom.spdx.json
-COPY --chown=node:node dist/audit-manifest.json ./dist/audit-manifest.json
-COPY --chown=node:node dist/phase-gates.json ./dist/phase-gates.json
+COPY --from=builder --chown=node:node /app ./
 COPY --chown=root:root ops/container-entrypoint.sh ./ops/container-entrypoint.sh
 USER root
 ENV AEL_HOST=0.0.0.0 AEL_STATE=/data/devnet-state.json AEL_VALIDATORS=4
