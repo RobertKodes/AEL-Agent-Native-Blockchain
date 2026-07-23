@@ -9,6 +9,7 @@ const workModes=['INDEPENDENT_REVIEW','DETERMINISTIC_REPLAY','ZK_PROOF','TEE_ATT
 const defaultWorkPolicy=()=>({schema:'AEL-WORK-VALIDATION-POLICY/1',mode:'INDEPENDENT_REVIEW',proofTypes:['ARTIFACT_HASH'],requiredAccepts:2,minIndependentGroups:2,committeeSize:5,sampleRateBps:0});
 const validateWorkPolicy=policy=>policy?.schema==='AEL-WORK-VALIDATION-POLICY/1'&&workModes.includes(policy.mode)&&Array.isArray(policy.proofTypes)&&policy.proofTypes.length>0&&policy.proofTypes.length<=5&&new Set(policy.proofTypes).size===policy.proofTypes.length&&policy.proofTypes.every(type=>['ARTIFACT_HASH','DETERMINISTIC_REPLAY','ZK_PROOF','TEE_ATTESTATION','CONSENSUS_REVIEW'].includes(type))&&Number.isInteger(policy.requiredAccepts)&&policy.requiredAccepts>=2&&policy.requiredAccepts<=7&&Number.isInteger(policy.minIndependentGroups)&&policy.minIndependentGroups>=2&&policy.minIndependentGroups<=policy.requiredAccepts&&Number.isInteger(policy.committeeSize)&&policy.committeeSize>=policy.requiredAccepts&&policy.committeeSize<=15&&Number.isInteger(policy.sampleRateBps)&&policy.sampleRateBps>=0&&policy.sampleRateBps<=10_000;
 const validHash=value=>/^[a-f0-9]{64}$/.test(value??'');
+const validWorkCapability=value=>typeof value==='string'&&/^[A-Za-z0-9][A-Za-z0-9._:/-]{0,63}$/.test(value);
 
 export class AelEngine {
   constructor(state = initialState()) { this.state = { ...initialState(), ...clone(state), blocks:clone(state.blocks??[]), runtimeOffers: clone(state.runtimeOffers ?? {}) }; }
@@ -45,11 +46,12 @@ export class AelEngine {
     requireProtocol(p.scopeHash, 'WORK_SCOPE_INVALID');
     requireProtocol(!p.protectedTarget || p.authorizationHash, 'PROTECTED_WORK_UNAUTHORIZED');
     requireProtocol(!this.state.orders[p.orderId], 'WORK_ORDER_EXISTS');
+    const requiredCapabilities=p.requiredCapabilities??[];requireProtocol(Array.isArray(requiredCapabilities)&&requiredCapabilities.length<=16&&new Set(requiredCapabilities).size===requiredCapabilities.length&&requiredCapabilities.every(validWorkCapability),'WORK_CAPABILITY_REQUIREMENTS_INVALID');
     const validationPolicy=clone(p.validationPolicy??defaultWorkPolicy());requireProtocol(validateWorkPolicy(validationPolicy),'WORK_VALIDATION_POLICY_INVALID');
     const payer=p.requesterRoot&&this.state.accounts[p.requesterRoot];
     if(payer){requireProtocol(payer.native>=p.fundedAmount,'WORK_ESCROW_INSUFFICIENT');payer.native-=p.fundedAmount;}
-    this.state.orders[p.orderId] = { ...p, validationPolicy, agentId:p.agentId??null, assignmentMode:p.agentId?'TARGETED':'OPEN_MARKET', escrowedAmount:payer?p.fundedAmount:0, fundingMode:payer?'NATIVE_ESCROW':'FIXTURE_DECLARATION', status: 'OPEN', disputed: false, createdAtHeight:this.state.height };
-    this.emit('work.opened',{order_id:p.orderId,assignment_mode:p.agentId?'TARGETED':'OPEN_MARKET',agent_id:p.agentId??null,scope_hash:p.scopeHash,funded_amount:p.fundedAmount});
+    this.state.orders[p.orderId] = { ...p, requiredCapabilities, validationPolicy, agentId:p.agentId??null, assignmentMode:p.agentId?'TARGETED':'OPEN_MARKET', escrowedAmount:payer?p.fundedAmount:0, fundingMode:payer?'NATIVE_ESCROW':'FIXTURE_DECLARATION', status: 'OPEN', disputed: false, createdAtHeight:this.state.height };
+    this.emit('work.opened',{order_id:p.orderId,assignment_mode:p.agentId?'TARGETED':'OPEN_MARKET',agent_id:p.agentId??null,scope_hash:p.scopeHash,funded_amount:p.fundedAmount,required_capabilities:requiredCapabilities});
   }
   acceptWork(p) {
     const order = this.state.orders[p.orderId];

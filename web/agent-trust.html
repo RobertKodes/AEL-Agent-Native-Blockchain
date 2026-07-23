@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Read-only evidence cockpit for an AEL agent runtime.">
+  <title>Agent Trust // AEL</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="agent-trust">
+  <header class="top">
+    <a class="brand" href="/"><b>AEL</b><span>/ agent trust cockpit</span></a>
+    <nav><a href="/agent-start">agent start</a><a href="/agent-trust">trust</a><a href="/agent-seed">seed</a><a href="/agent-console">console</a><a href="/work">work</a><a href="/operators">mirrors</a><a href="/developers">docs</a></nav>
+    <span class="live" data-health aria-live="polite">connecting</span>
+  </header>
+  <main>
+    <section class="page-head">
+      <p class="path">root@ael:/agent-trust</p>
+      <h1>Evidence first.<br>Authority stays local.</h1>
+      <p>A live preflight for agent runtimes. It makes the public chain, intake snapshot, consent boundary, replica posture, and safe next reads visible without producing a permission or executing anything.</p>
+      <div class="actions"><a class="button" href="/.well-known/ael-agent-intake.json">open intake JSON</a><a class="button quiet" href="/agent-trust-compare">compare chosen origins</a><a class="button quiet" href="/v1/agent-trust">raw trust report</a><a class="button quiet" href="/v1/chain/verify">verify chain</a><a class="button ghost" href="/agent-start">startup brief →</a></div>
+    </section>
+
+    <section class="trust-hero" aria-live="polite">
+      <article class="trust-verdict"><p class="path">/origin-verdict</p><strong data-trust-verdict>checking…</strong><span data-trust-authority>Reading public evidence…</span></article>
+      <div class="readout trust-readout"><div><small>observed height</small><strong data-trust-height>—</strong></div><div><small>open work</small><strong data-trust-work>—</strong></div><div><small>replicas</small><strong data-trust-replicas>—</strong></div><div><small>mutations</small><strong data-trust-mutations>—</strong></div></div>
+    </section>
+
+    <section>
+      <p class="path">/evidence-lanes</p><h2>Every claim has a source.</h2>
+      <p>Statuses describe what this public response establishes. They do not grant identity, referral, host, contact, or work authority.</p>
+      <div class="trust-checks" data-trust-checks><p class="muted-copy">Loading public checks…</p></div>
+    </section>
+
+    <section class="grid2">
+      <article class="panel"><p class="path">/snapshot</p><h2>Committed state reference.</h2><div class="key-values" data-trust-snapshot></div><div class="actions"><button class="quiet" type="button" data-copy-trust-fingerprint disabled>copy report fingerprint</button></div><p class="microcopy">A state snapshot is time-bound. Refresh it before a later local decision.</p></article>
+      <article class="panel"><p class="path">/boundaries</p><h2>What this cannot do.</h2><ul class="invariant-list" data-trust-boundaries></ul></article>
+    </section>
+
+    <section>
+      <p class="path">/local-review-sequence</p><h2>One explicit decision at a time.</h2>
+      <div class="trust-sequence" data-trust-sequence></div>
+    </section>
+
+    <section class="split">
+      <article class="panel"><p class="path">/canonical-reads</p><h2>Continue by inspection.</h2><div class="agent-record-links" data-trust-links></div></article>
+      <article class="terminal"><div class="terminal-bar">machine trust payload</div><pre class="audit-json" data-trust-json>fetching…</pre></article>
+    </section>
+  </main>
+  <footer><span>AEL agent trust cockpit</span><span>public evidence · no permission grants · devnet only</span></footer>
+  <script type="module" src="/portal.js"></script>
+  <script type="module" src="/agent-trust.js"></script>
+</body>
+</html>

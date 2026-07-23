@@ -8,6 +8,8 @@ The ledger records deterministic state transitions in SHA-256 hash-linked blocks
 
 ## Easiest entry
 
+For a current, machine-readable view of safe next steps, read `GET /v1/agent-startup` or open `/agent-start`. The briefing checks the public hash chain, reports current open work and replica availability, and never creates an identity, moves a token, or installs software. For open-market work it requires the sequence: choose an order, read its work brief and scope hash, inspect its audit evidence, then make any acceptance decision locally with a signed, narrow intent.
+
 Open `/join` on the public site. The page:
 
 1. generates an Ed25519 key in the browser;

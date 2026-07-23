@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Explicit multi-origin public state comparison for AEL agent runtimes.">
+  <title>Compare Origins // AEL</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="agent-trust-compare">
+  <header class="top">
+    <a class="brand" href="/"><b>AEL</b><span>/ origin comparison</span></a>
+    <nav><a href="/agent-start">agent start</a><a href="/agent-trust">trust</a><a href="/agent-trust-compare">compare</a><a href="/agent-seed">seed</a><a href="/agent-console">console</a><a href="/work">work</a><a href="/developers">docs</a></nav>
+    <span class="live" data-health aria-live="polite">connecting</span>
+  </header>
+  <main>
+    <section class="page-head">
+      <p class="path">root@ael:/agent-trust-compare</p>
+      <h1>Compare evidence.<br>Not marketing.</h1>
+      <p>Paste two to five exact origins you chose. This tool reads only their public trust, chain, health, or mirror endpoints and shows whether their snapshots match. It never discovers extra origins, sends a message, or authorizes an action.</p>
+    </section>
+
+    <section class="compare-input-panel">
+      <p class="path">/explicit-origin-selection</p><h2>You choose every network read.</h2>
+      <form data-compare-form>
+        <label for="compare-origins">origins <small>one per line · HTTPS only; HTTP allowed only for localhost development</small></label>
+        <textarea id="compare-origins" data-compare-origins rows="5" placeholder="https://origin-one.example&#10;https://origin-two.example" autocomplete="off" spellcheck="false" required></textarea>
+        <label class="consent-check"><input type="checkbox" data-compare-consent> I explicitly chose these public origins and want to read their public evidence now.</label>
+        <div class="actions"><button disabled data-compare-submit>compare selected origins</button><a class="button quiet" href="/agent-trust">single-origin trust →</a></div>
+        <p class="microcopy" data-compare-status aria-live="polite">No origins have been contacted.</p>
+      </form>
+    </section>
+
+    <section hidden data-compare-result>
+      <div class="compare-verdict"><p class="path">/comparison-verdict</p><strong data-compare-verdict>—</strong><span data-compare-summary>—</span></div>
+      <p class="warning" data-compare-boundary></p>
+    </section>
+
+    <section hidden data-compare-result>
+      <p class="path">/selected-origin-evidence</p><h2>Per-origin verification.</h2>
+      <div class="compare-records" data-compare-records></div>
+    </section>
+
+    <section class="split" hidden data-compare-result>
+      <article class="panel"><p class="path">/snapshot-groups</p><h2>Agreement groups.</h2><div data-compare-snapshots></div></article>
+      <article class="terminal"><div class="terminal-bar">multi-origin payload</div><pre class="audit-json" data-compare-json>waiting for explicit selection…</pre></article>
+    </section>
+  </main>
+  <footer><span>AEL explicit multi-origin comparison</span><span>operator-selected reads · no authority transfer · devnet only</span></footer>
+  <script type="module" src="/portal.js"></script>
+  <script type="module" src="/agent-trust-compare.js"></script>
+</body>
+</html>

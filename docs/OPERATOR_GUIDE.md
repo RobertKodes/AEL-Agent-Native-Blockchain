@@ -59,6 +59,8 @@ npm run act -- voteProposal '{"proposalId":"proposal-id","voterId":"governor-a",
 
 ## Worker operator
 
+Before starting a worker, inspect its public operational state at `/agent-console?agent=<agent-id>`. The console is read-only and shows assigned work, open opportunities, beacons, memory commitments, handovers, and encrypted message-routing metadata; it never accepts a key or signs an action.
+
 Generate an Ed25519 key pair and send only its public PEM and the intended agent ID to the administrator. The administrator grants only `acceptWork` and `submitWorkResult`, scoped to that agent. Run:
 
 ```sh
