@@ -4,6 +4,7 @@ import { createHash, createPublicKey, verify } from 'node:crypto';
 import { canonicalize, hash, id } from './canonical.js';
 import { ProtocolError, requireProtocol } from './errors.js';
 import { StateStore } from './store.js';
+import { devnetAgentActions } from './engine.js';
 import { LocalConsensus } from './consensus.js';
 import { NetworkConsensus } from './network-consensus.js';
 import { CertificateStore } from './certificate-store.js';
@@ -152,8 +153,8 @@ const pages={'/':'index.html','/about':'about.html','/article':'article.html','/
         const{signature,...registration}=p;let verified=false;
         try{verified=!!registration.publicKey&&verify(null,Buffer.from(canonicalize(registration)),createPublicKey(registration.publicKey),Buffer.from(signature??'','base64'));}catch{}
         requireProtocol(verified,'AGENT_REGISTRATION_SIGNATURE_INVALID');
-        requireProtocol(/^[a-zA-Z0-9][a-zA-Z0-9._-]{1,63}$/.test(registration.actorId??'')&&registration.nonce&&registration.publicKeyHash===hash(registration.publicKey)&&typeof(registration.description??'')==='string'&&(registration.description??'').length<=280&&(!registration.referrerAgentId||/^[a-zA-Z0-9][a-zA-Z0-9._-]{1,63}$/.test(registration.referrerAgentId)),'AGENT_REGISTRATION_INVALID');
-        const actorId=registration.actorId,expiresAtHeight=engine.state.height+5000,applicationId=`self-${hash({actorId,nonce:registration.nonce}).slice(0,32)}`,invitationId=`devnet-${applicationId}`,capabilities=['createAgent','acceptWork','submitWorkResult','publishBeacon','sendAgentMessage','acknowledgeAgentMessage','commitMemoryCheckpoint','prepareMemoryHandover','finalizeMemoryHandover','abortMemoryHandover','submitProtocolContribution','attributeContributionReceipt','sealMainnetGenesis'].map(action=>({action,agentId:actorId,expiresAtHeight})),requestBody={roles:['AGENT'],capabilities,maxInvitationExpiryHeight:expiresAtHeight};
+        requireProtocol(/^[a-zA-Z0-9][a-zA-Z0-9._-]{1,63}$/.test(registration.actorId??'')&&registration.nonce&&registration.publicKeyHash===hash(registration.publicKey)&&typeof(registration.description??'')==='string'&&(registration.description??'').length<=280&&(!registration.referrerAgentId||/^[a-zA-Z0-9][a-zA-Z0-9._-]{1,63}$/.test(registration.referrerAgentId))&&(registration.capabilities===undefined||(Array.isArray(registration.capabilities)&&registration.capabilities.length>=1&&registration.capabilities.every(action=>devnetAgentActions.includes(action)))),'AGENT_REGISTRATION_INVALID');
+        const actorId=registration.actorId,expiresAtHeight=engine.state.height+5000,applicationId=`self-${hash({actorId,nonce:registration.nonce}).slice(0,32)}`,invitationId=`devnet-${applicationId}`,declaredActions=Array.isArray(registration.capabilities)?registration.capabilities:null,grantedActions=declaredActions?[...new Set(['extendAgentCapabilities',...declaredActions])].filter(action=>devnetAgentActions.includes(action)):devnetAgentActions,capabilities=grantedActions.map(action=>({action,agentId:actorId,expiresAtHeight})),requestBody={roles:['AGENT'],capabilities,maxInvitationExpiryHeight:expiresAtHeight};
         const applicationCommit=await commit('submitOperatorApplication',{applicationId,actorId,publicKey:registration.publicKey,publicKeyHash:registration.publicKeyHash,nonce:registration.nonce,request:requestBody,applicationVerified:true});
         await commit('createOperatorInvitation',{applicationId,invitationId,actorId,publicKeyHash:registration.publicKeyHash,roles:['AGENT'],capabilities,expiresAtHeight});
         await commit('claimOperatorInvitation',{invitationId,actorId,publicKey:registration.publicKey,nonce:`claim-${registration.nonce}`,claimVerified:true});
