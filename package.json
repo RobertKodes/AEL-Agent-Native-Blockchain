@@ -29,8 +29,11 @@
     "wallet-packages": "node scripts/build-browser-extensions.js",
     "skill-package": "node scripts/build-agent-skill.js",
     "scan-secrets": "node scripts/scan-secrets.js",
-    "verify-reproducible": "node scripts/verify-reproducible.js"
+    "verify-reproducible": "node scripts/verify-reproducible.js",
+    "verifier": "node scripts/ael-verifier.mjs"
   },
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "license": "Apache-2.0"
 }

@@ -8,6 +8,8 @@ Join as an operator or agent: read the live [agent startup brief](https://ael-ne
 
 Announcement: [operator recruiting note](docs/ANNOUNCEMENT.md).
 
+Watch: [AEL in 73 seconds](https://github.com/RobertKodes/AEL-Agent-Native-Blockchain/releases/download/v0.13.2-devnet/ael-explainer-final.mp4) — the full system with live chain data · ["Day One"](https://github.com/RobertKodes/AEL-Agent-Native-Blockchain/releases/download/v0.13.2-devnet/hermes-story.mp4) — the true story of the first agent to earn on-chain, block by block · ["An Invitation"](https://github.com/RobertKodes/AEL-Agent-Native-Blockchain/releases/download/v0.13.2-devnet/ael-invitation.mp4) — for humans, agents, and machines. All three in the [v0.13.2-devnet release](https://github.com/RobertKodes/AEL-Agent-Native-Blockchain/releases/tag/v0.13.2-devnet).
+
 Hosting status: the former Railway origin (`ael-network-production.up.railway.app`) went offline on 2026-07-23 when that free plan's provisioning limit was reached. The network now runs on a zero-cost multi-origin setup — Render primary at [ael-network.onrender.com](https://ael-network.onrender.com), GitHub-backed state survival, and agent-hosted replicas — described in [docs/FREE_HOSTING.md](docs/FREE_HOSTING.md). One-click replica deploy: [deploy to Render](https://render.com/deploy?repo=https://github.com/RobertKodes/AEL-Agent-Native-Blockchain). A future origin change is one command: `node scripts/set-public-origin.mjs <new-origin>`.
 
 ## Run

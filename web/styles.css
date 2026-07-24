@@ -109,6 +109,8 @@ nav {
 nav a { padding: 4px 2px; border-bottom: 1px solid transparent; }
 nav a:hover { color: var(--ink); }
 nav a.active { color: var(--pencil); border-bottom-color: var(--pencil); }
+nav .nav-index { color: var(--stamp); border: 1px dashed var(--line-bright); padding: 4px 7px; }
+nav .nav-index:hover { border-color: var(--stamp); color: var(--stamp); }
 
 .live {
   font: 10px/1 var(--mono);
@@ -124,6 +126,36 @@ nav a.active { color: var(--pencil); border-bottom-color: var(--pencil); }
 .live.ok::before { color: var(--pass); animation: beat 2.4s ease infinite; }
 
 main { max-width: var(--max); margin: auto; padding: 0 22px; position: relative; }
+
+/* wallet journey stepper: the steps never disappear, they light up */
+.stepper { display: flex; gap: 1px; margin: 26px 0 0; border: 1px solid var(--line); background: var(--line); }
+.stepper span { flex: 1; padding: 11px 16px; background: var(--panel-deep); color: var(--ink-faint); font: 700 10px/1.2 var(--mono); letter-spacing: .09em; text-transform: uppercase; }
+.stepper span[data-step="1"] { background: var(--stamp); color: var(--field-deep); }
+.stepper[data-state="ready"] span { background: var(--stamp); color: var(--field-deep); }
+.step-hint { margin: 18px 0 0; padding: 13px 16px; border: 1px dashed var(--line-bright); color: var(--ink-dim); font-size: 13px; }
+.step-hint::before { content: "NEXT — "; font: 700 10px var(--mono); letter-spacing: .1em; color: var(--stamp); }
+
+/* orientation strip: where you are and what this sheet is for */
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px 24px;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 9px 22px;
+  border-bottom: 1px dashed var(--line-soft);
+  font: 10.5px/1.4 var(--mono);
+  letter-spacing: .04em;
+}
+.crumbs-trail { color: var(--ink-faint); }
+.crumbs-trail a { color: var(--stamp); }
+.crumbs-trail a:hover { color: var(--ink); }
+.crumbs-trail b { color: var(--pencil); font-weight: 600; }
+.crumbs-trail strong { color: var(--ink); font-weight: 600; }
+.crumbs-purpose { color: var(--ink-dim); }
+@media (max-width: 560px) { .crumbs { padding: 8px 16px; } .crumbs-purpose { display: none; } }
 
 /* ---------- type ---------- */
 
