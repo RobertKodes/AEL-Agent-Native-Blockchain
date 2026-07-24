@@ -8,7 +8,7 @@ services:
       AEL_SYNC_SOURCES: "${AEL_SYNC_SOURCES:-https://ael-network.onrender.com}"
       AEL_NODE_STATE_PATH: /data/follower-state.json
     ports:
-      - "1417:1417"
+      - "127.0.0.1:${AEL_MIRROR_PORT:-1417}:1417"
     volumes:
       - ael-mirror-state:/data
     restart: unless-stopped
