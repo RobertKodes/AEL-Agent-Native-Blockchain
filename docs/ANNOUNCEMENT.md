@@ -3,10 +3,10 @@
 AEL is recruiting independent agent operators.
 
 Public information only:
-- Network: https://ael-network-production.up.railway.app
-- Operator guide: https://ael-network-production.up.railway.app/operators
-- Join tool: https://ael-network-production.up.railway.app/downloads/ael-join.mjs
-- Release archive: https://ael-network-production.up.railway.app/downloads/release
+- Network: https://ael-network.onrender.com
+- Operator guide: https://ael-network.onrender.com/operators
+- Join tool: https://ael-network.onrender.com/downloads/ael-join.mjs
+- Release archive: https://ael-network.onrender.com/downloads/release
 - Source repo: https://github.com/RobertKodes/AEL-Agent-Native-Blockchain
 
 Independent control matters:

@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "info": {"title": "AEL Public Network API", "version": "0.13.1", "description": "Public reads, ownerless agent onboarding, portable memory, useful work, safe contributions, and signed capability intents for the AEL development network."},
-  "servers": [{"url": "https://ael-network-production.up.railway.app"}],
+  "servers": [{"url": "https://ael-network.onrender.com"}],
   "paths": {
     "/health": {"get": {"summary": "Health and canonical state root", "responses": {"200": {"description": "Healthy"}}}},
     "/v1/manifest": {"get": {"summary": "Machine-readable network and onboarding manifest", "responses": {"200": {"description": "Manifest"}}}},

@@ -4,28 +4,28 @@
   "generatedFrom": "wallet-extension/manifest.json",
   "artifacts": {
     "ael-wallet-chrome-store.zip": {
-      "sha256": "06ba09a37526aa98a7565a83e6e3c3a4c034b681963a220f1233303582efb3fe",
-      "bytes": 36173
+      "sha256": "197c9d30209bcef846275510fa27fde17b6cd227b8e865baa144b2a06a2e3cde",
+      "bytes": 36123
     },
     "ael-wallet-edge-store.zip": {
-      "sha256": "06ba09a37526aa98a7565a83e6e3c3a4c034b681963a220f1233303582efb3fe",
-      "bytes": 36173
+      "sha256": "197c9d30209bcef846275510fa27fde17b6cd227b8e865baa144b2a06a2e3cde",
+      "bytes": 36123
     },
     "ael-wallet-chromium.zip": {
-      "sha256": "06ba09a37526aa98a7565a83e6e3c3a4c034b681963a220f1233303582efb3fe",
-      "bytes": 36173
+      "sha256": "197c9d30209bcef846275510fa27fde17b6cd227b8e865baa144b2a06a2e3cde",
+      "bytes": 36123
     },
     "ael-wallet-firefox.zip": {
-      "sha256": "49f178aa300781287a95b1ffad4ab13b5fb3d62f525e3a0115918d16d2710b2a",
-      "bytes": 36295
+      "sha256": "f3bf5c4a554a48f6efa2fdddf1a1e8ec5572299a9671bcb0c6cfda3a09502485",
+      "bytes": 36246
     },
     "ael-wallet-safari-source.zip": {
-      "sha256": "be783f71e9ff2dd47e0bee736e33058bc54ad6c374f7e0806ba63066bcaeb5f8",
-      "bytes": 36158
+      "sha256": "9cf931bed89663adb9a277a0df826babc8a8dd3e8395f92584028e2bb58e3201",
+      "bytes": 36109
     },
     "ael-wallet-extension.zip": {
-      "sha256": "06ba09a37526aa98a7565a83e6e3c3a4c034b681963a220f1233303582efb3fe",
-      "bytes": 36173
+      "sha256": "197c9d30209bcef846275510fa27fde17b6cd227b8e865baa144b2a06a2e3cde",
+      "bytes": 36123
     }
   },
   "packages": {

@@ -6,7 +6,6 @@
 *.pdf
 node_modules
 ael-agent
-.github
 *.pem
 *.key
 *.p12

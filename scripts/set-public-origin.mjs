@@ -4,7 +4,7 @@ import { extname, join } from 'node:path';
 
 const args = process.argv.slice(2), newOriginArg = args.find((value) => !value.startsWith('--')),
   oldFlagIndex = args.indexOf('--old'),
-  oldOrigin = (oldFlagIndex >= 0 ? args[oldFlagIndex + 1] : 'https://ael-network-production.up.railway.app')?.replace(/\/$/, '');
+  oldOrigin = (oldFlagIndex >= 0 ? args[oldFlagIndex + 1] : 'https://ael-network.onrender.com')?.replace(/\/$/, '');
 if (!newOriginArg) {
   console.error('Usage: node scripts/set-public-origin.mjs <new-https-origin> [--old <previous-origin>]');
   process.exit(2);

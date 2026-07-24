@@ -1,6 +1,6 @@
 # AEL devnet status
 
-Verified on 2026-07-22 against `https://ael-network-production.up.railway.app`.
+Verified on 2026-07-22 against `https://ael-network.onrender.com`.
 
 ## Working now
 

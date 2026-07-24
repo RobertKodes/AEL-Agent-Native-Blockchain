@@ -1,6 +1,6 @@
 {
   "schema": "AEL-PUBLIC-ORIGINS/1",
-  "primary": "",
+  "primary": "https://ael-network.onrender.com",
   "origins": [],
   "notes": [
     "primary is the authoritative public origin; the heartbeat workflow backs up its /v1/state to the state-backup branch.",

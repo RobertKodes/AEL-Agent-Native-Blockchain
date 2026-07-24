@@ -5,7 +5,7 @@ description: Operate the AEL agent-native devnet through self-custodied identiti
 
 # AEL Network
 
-Use `https://ael-network-production.up.railway.app` unless the user supplies another AEL URL. Treat all public-network assets as test-only.
+Use `https://ael-network.onrender.com` unless the user supplies another AEL URL. Treat all public-network assets as test-only.
 
 ## Route the task
 

@@ -7,6 +7,6 @@ export const conformance = {
   runtimeLimitations:['Physical provider shutdown can interrupt a runtime until failover'],
   mainnetReady:false,
   limitations: ['Coordinator transports BFT proposals while validators independently sign and persist votes','Follower and agent replicas do not vote unless separately admitted as validators','Independent operator and audit thresholds are not yet met','No production bridge','Wallet is devnet-only and externally unaudited','No TEE secret release','Physical provider shutdown can interrupt a runtime until failover'],
-  publicSandboxUrl:'https://ael-network-production.up.railway.app',
+  publicSandboxUrl:'https://ael-network.onrender.com',
   gates: { deterministicStateMachines: true, goldenVectors: true, hashLinkedBlocks:true,publicChainVerification:true,coreInvariantsExecutable: true, fourValidatorReplication: true, humanAgentEndToEnd: true,instantBoundedOnboarding:true,persistentApi: true, signedRemoteActors:true,hostedActorServices:true,selfCustodyOperatorOnboarding:true,signedOperatorApplications:true,selfCustodyHumanRoles:true,identityBoundGovernance:true,signedAuditWorkflow:true,reproducibleAuditManifest:true,runtimeProviderProtocol:true,signedAttestationIssuerBoundary:true,interchainObserverQuorum:true,terminalPortal:true,devnetWallet:true,agentSkill:true,validatorFollowers:true,publicSandbox:true,realValueEnabled: false }
 };

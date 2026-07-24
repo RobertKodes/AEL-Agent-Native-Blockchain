@@ -1,6 +1,6 @@
 # API and SDK
 
-Base URL: `https://ael-network-production.up.railway.app`
+Base URL: `https://ael-network.onrender.com`
 
 Important public reads:
 

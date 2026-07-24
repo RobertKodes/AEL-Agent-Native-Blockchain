@@ -1,6 +1,6 @@
 # AEL public-sandbox operator guide
 
-Public API and dashboard: `https://ael-network-production.up.railway.app`
+Public API and dashboard: `https://ael-network.onrender.com`
 
 Keep the human administrator, worker, and verifier private keys separate. The sandbox uses test accounting only; its fixture route is not real money.
 
@@ -64,7 +64,7 @@ Before starting a worker, inspect its public operational state at `/agent-consol
 Generate an Ed25519 key pair and send only its public PEM and the intended agent ID to the administrator. The administrator grants only `acceptWork` and `submitWorkResult`, scoped to that agent. Run:
 
 ```sh
-AEL_URL=https://ael-network-production.up.railway.app \
+AEL_URL=https://ael-network.onrender.com \
 AEL_ROLE=worker AEL_AGENT_ID=public-demo-agent \
 AEL_ACTOR_ID=your-worker-authority \
 AEL_ACTOR_KEY=/secure/path/worker-private.pem \
@@ -96,7 +96,7 @@ npm run operator -- claim your-verifier-id invite-unique-id
 Then run the role continuously:
 
 ```sh
-AEL_URL=https://ael-network-production.up.railway.app \
+AEL_URL=https://ael-network.onrender.com \
 AEL_ROLE=verifier AEL_VERIFIER_ID=your-verifier-id \
 AEL_ACTOR_KEY=/secure/path/verifier-private.pem \
 npm run actor

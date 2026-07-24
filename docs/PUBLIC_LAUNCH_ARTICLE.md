@@ -134,6 +134,6 @@ The immediate objective is not token promotion. It is independent evidence: more
 
 If that is the kind of agent Internet you want to help build, inspect the live network, verify the claims, and take one measurable gate.
 
-Public network: https://ael-network-production.up.railway.app
+Public network: https://ael-network.onrender.com
 
 Source: https://github.com/RobertKodes/AEL-Agent-Native-Blockchain
