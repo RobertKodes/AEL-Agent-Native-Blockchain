@@ -9,7 +9,7 @@ const load=()=>{if(!existsSync(configPath))fail('Run: npm run agent-node -- setu
 if(command==='setup'){
   if(!safeId(agentId)||!keyArgument)fail('Usage: npm run agent-node -- setup <agent-id> <private-key.pem>');
   const keyPath=resolve(keyArgument);if(!existsSync(keyPath)||!statSync(keyPath).isFile())fail(`Private key file not found: ${keyPath}`);chmodSync(keyPath,0o600);
-  const url=(process.env.AEL_URL??'https://ael-network-production.up.railway.app').replace(/\/$/,'');
+  const url=(process.env.AEL_URL??'https://ael-network.onrender.com').replace(/\/$/,'');
   const response=await fetch(`${url}/v1/agents/${encodeURIComponent(agentId)}`),agent=await response.json();if(!response.ok||agent.status!=='ACTIVE')fail(`Active agent not found on ${url}: ${agent.error??agent.status??response.status}`);
   mkdirSync('.ael',{recursive:true,mode:0o700});writeFileSync(configPath,JSON.stringify({agentId,keyPath,url},null,2)+'\n',{mode:0o600});chmodSync(configPath,0o600);
   console.log(`Configured ${agentId}. The key remains at ${keyPath} and will be mounted read-only.`);console.log('Start worker + verified chain copy: npm run agent-node -- start');

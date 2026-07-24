@@ -23,4 +23,4 @@ The default network is a public devnet. AEL shown in this build is a test asset 
 - No raw signature, arbitrary-message signature, seed export, password export, or plaintext-key export API exists.
 - No remote JavaScript, dynamic code evaluation, telemetry, analytics, advertising, or tracking library exists.
 - A custom network permission is optional and requested only from a direct button click.
-- Privacy page: `https://ael-network-production.up.railway.app/privacy` and packaged `privacy.html`.
+- Privacy page: `https://ael-network.onrender.com/privacy` and packaged `privacy.html`.

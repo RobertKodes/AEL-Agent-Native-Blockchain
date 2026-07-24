@@ -3,7 +3,7 @@ import { createHash, generateKeyPairSync, sign } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
 const canonicalize=value=>value===null?'null':value===true?'true':value===false?'false':typeof value==='string'||typeof value==='number'?JSON.stringify(value):Array.isArray(value)?`[${value.map(canonicalize).join(',')}]`:`{${Object.keys(value).filter(key=>value[key]!==undefined).sort().map(key=>`${JSON.stringify(key)}:${canonicalize(value[key])}`).join(',')}}`,hash=value=>createHash('sha256').update(canonicalize(value)).digest('hex');
-const [operatorId,mirrorUrlInput,provider,faultDomain]=process.argv.slice(2),upstream=(process.env.AEL_URL??'https://ael-network-production.up.railway.app').replace(/\/$/,''),mirrorUrl=(mirrorUrlInput??'').replace(/\/$/,'');
+const [operatorId,mirrorUrlInput,provider,faultDomain]=process.argv.slice(2),upstream=(process.env.AEL_URL??'https://ael-network.onrender.com').replace(/\/$/,''),mirrorUrl=(mirrorUrlInput??'').replace(/\/$/,'');
 if(!/^[a-zA-Z0-9][a-zA-Z0-9._-]{1,63}$/.test(operatorId??'')||!mirrorUrl||!provider||!faultDomain){console.error('Usage: node ael-mirror-proof.mjs <operator-id> <https-mirror-url> <provider> <fault-domain>');process.exit(2)}
 const mirrorEndpoint=new URL(mirrorUrl);if(mirrorEndpoint.protocol!=='https:'||mirrorEndpoint.username||mirrorEndpoint.password||mirrorEndpoint.hash)throw new Error('Mirror proof requires a public HTTPS endpoint without credentials or a fragment');
 const [mirrorHealth,mirrorState,upstreamState]=await Promise.all([fetch(`${mirrorUrl}/health`).then(r=>r.json()),fetch(`${mirrorUrl}/state`).then(r=>r.json()),fetch(`${upstream}/v1/state`).then(r=>r.json())]),mirrorHash=hash(mirrorState),upstreamHash=hash(upstreamState);

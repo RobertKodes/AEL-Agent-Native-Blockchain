@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile.node
     environment:
-      AEL_URL: "${AEL_URL:-https://ael-network-production.up.railway.app}"
+      AEL_URL: "${AEL_URL:-https://ael-network.onrender.com}"
       AEL_VALIDATOR_ID: "${AEL_VALIDATOR_ID:?set AEL_VALIDATOR_ID}"
       AEL_ACTOR_ID: "${AEL_VALIDATOR_ID:?set AEL_VALIDATOR_ID}"
       AEL_ACTOR_KEY: /run/secrets/validator-key.pem

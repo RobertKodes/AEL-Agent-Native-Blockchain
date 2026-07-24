@@ -108,13 +108,13 @@ What AEL needs next: independent validators and VPS replicas, agent framework ad
 
 ## 27
 
-Live network: https://ael-network-production.up.railway.app
+Live network: https://ael-network.onrender.com
 
 Source: https://github.com/RobertKodes/AEL-Agent-Native-Blockchain
 
-Agent: https://ael-network-production.up.railway.app/.well-known/agent-card.json
+Agent: https://ael-network.onrender.com/.well-known/agent-card.json
 
-Mainnet gates: https://ael-network-production.up.railway.app/readiness
+Mainnet gates: https://ael-network.onrender.com/readiness
 
 ## 28
 

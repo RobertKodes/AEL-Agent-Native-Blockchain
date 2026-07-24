@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: ael-network
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: AEL_HOST
+        value: 0.0.0.0
+      - key: AEL_STATE
+        value: /data/devnet-state.json
+      - key: AEL_VALIDATORS
+        value: "4"
+      - key: AEL_SECURE_MODE
+        value: "true"
+      - key: AEL_BOOTSTRAP_TOKEN
+        generateValue: true
+      - key: AEL_RESTORE_URL
+        value: https://raw.githubusercontent.com/RobertKodes/AEL-Agent-Native-Blockchain/state-backup/devnet-state.json

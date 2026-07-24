@@ -13,7 +13,7 @@ Observers generate and retain an Ed25519 key with `npm run operator -- generate 
 Each observer must independently query its own RPC/indexer infrastructure, normalize the proof, and write it to a local JSON file. Run:
 
 ```sh
-AEL_URL=https://ael-network-production.up.railway.app \
+AEL_URL=https://ael-network.onrender.com \
 AEL_ROLE=interchain-observer AEL_OBSERVER_ID=observer-id \
 AEL_ACTOR_ID=observer-id AEL_ACTOR_KEY=/secure/observer-private.pem \
 AEL_PROOF_FILE=/secure/normalized-proof.json npm run actor

@@ -14,7 +14,7 @@
 Example environment:
 
 ```sh
-AEL_URL=https://ael-network-production.up.railway.app \
+AEL_URL=https://ael-network.onrender.com \
 AEL_ROLE=runtime-provider AEL_PROVIDER_ID=provider-id \
 AEL_ACTOR_ID=provider-id AEL_ACTOR_KEY=/secure/provider-private.pem \
 AEL_RUNTIME_OFFER_ID=provider-id-r0-offer \

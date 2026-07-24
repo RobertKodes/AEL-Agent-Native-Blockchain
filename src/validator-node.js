@@ -11,7 +11,7 @@ import { fetchStateFromPeers } from "./state-sync.js";
 import { createStateCheckpoint } from "./state-sync.js";
 
 const baseUrl =
-    process.env.AEL_URL ?? "https://ael-network-production.up.railway.app",
+    process.env.AEL_URL ?? "https://ael-network.onrender.com",
   syncSources = (process.env.AEL_SYNC_SOURCES ?? baseUrl)
     .split(",")
     .map((value) => value.trim())

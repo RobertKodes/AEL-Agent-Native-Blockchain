@@ -125,5 +125,12 @@ export class AelClient {
   challengeExternalProof(input) { return this.request('POST','/v1/external-proofs/challenge',input); }
   registerValidator(input) { return this.request('POST','/v1/validators',input); }
   delegate(input) { return this.request('POST','/v1/delegations',input); }
+  undelegate(input,options) { return this.act('undelegate',input,options); }
+  tokens() { return this.request('GET','/v1/tokens'); }
+  token(tokenId) { return this.request('GET',`/v1/tokens/${encodeURIComponent(tokenId)}`); }
+  createToken(input,options) { return this.act('createToken',input,options); }
+  mintToken(input,options) { return this.act('mintToken',input,options); }
+  transferToken(input,options) { return this.act('transferToken',input,options); }
+  burnToken(input,options) { return this.act('burnToken',input,options); }
   claimServiceReward(input) { return this.request('POST','/v1/service-rewards',input); }
 }

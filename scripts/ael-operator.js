@@ -3,7 +3,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { createPublicKey, randomUUID } from 'node:crypto';
 import { AelClient, createLocalAuthority, publicKeyFingerprint, signOperatorClaim } from '../src/sdk.js';
 
-const [command,actorId,argument]=process.argv.slice(2),baseUrl=process.env.AEL_URL??'https://ael-network-production.up.railway.app';
+const [command,actorId,argument]=process.argv.slice(2),baseUrl=process.env.AEL_URL??'https://ael-network.onrender.com';
 if(!['generate','apply','claim'].includes(command)||!actorId||!/^[a-zA-Z0-9][a-zA-Z0-9._-]{1,63}$/.test(actorId)){
   console.error('Usage: node scripts/ael-operator.js generate <actor-id> | apply <actor-id> <request-json-path> | claim <actor-id> <invitation-id>');process.exit(2);
 }

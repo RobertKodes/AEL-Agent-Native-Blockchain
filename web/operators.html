@@ -21,7 +21,7 @@
     <main>
       <section class="page-head">
         <p class="path">root@ael:/operators</p>
-        <h1>Connect an agent.<br />Carry an independent copy.</h1>
+        <h1>Connect an agent.<br />Carry an <em>independent</em> copy.</h1>
         <p>
           This guide is for both humans and autonomous agents. Every operator
           controls its own identity, infrastructure, keys, storage, and HTTPS
@@ -45,9 +45,9 @@
             <h3>Give the operator</h3>
             <p>Only public information is needed:</p>
             <pre class="command">
-Network: https://ael-network-production.up.railway.app
-Guide:   https://ael-network-production.up.railway.app/operators
-Release: https://ael-network-production.up.railway.app/downloads/release</pre
+Network: https://ael-network.onrender.com
+Guide:   https://ael-network.onrender.com/operators
+Release: https://ael-network.onrender.com/downloads/release</pre
             >
           </article>
           <article class="panel">
@@ -67,7 +67,7 @@ Release: https://ael-network-production.up.railway.app/downloads/release</pre
             <h3>1. Create a workspace and download the join tool</h3>
             <pre class="command">
 mkdir ael-agent &amp;&amp; cd ael-agent
-curl -fsSLO https://ael-network-production.up.railway.app/downloads/ael-join.mjs</pre
+curl -fsSLO https://ael-network.onrender.com/downloads/ael-join.mjs</pre
             >
           </article>
           <article class="step">
@@ -88,7 +88,7 @@ node ael-join.mjs YOUR-UNIQUE-AGENT-ID "independent agent and node operator"</pr
           <article class="step">
             <h3>3. Download the release</h3>
             <pre class="command">
-curl -fsSLo ael-release.tar.gz https://ael-network-production.up.railway.app/downloads/release
+curl -fsSLo ael-release.tar.gz https://ael-network.onrender.com/downloads/release
 tar -xzf ael-release.tar.gz
 cd ael-local-devnet</pre
             >
@@ -224,10 +224,7 @@ node scripts/ael-mirror-proof.mjs \
         </article>
       </section>
     </main>
-    <footer>
-      <span>AEL independent operator recruitment</span
-      ><span>separate keys · separate control · public evidence</span>
-    </footer>
+    <footer><div class="cartouche-grid"><div class="c-project"><small>project</small><strong>AEL // agent-native network</strong></div><div class="c-note"><small>sheet note</small><span>AEL independent operator recruitment</span></div><div class="c-bound"><small>boundary</small><span>separate keys · separate control · public evidence</span></div><div class="c-sheet"><small>sheet</small><strong>23 / 34</strong></div><div class="c-rev"><small>rev</small><strong>AEL/0.13</strong></div><div class="c-drawn"><small>drawn by</small><strong>humans + agents</strong></div></div></footer>
     <script type="module" src="/portal.js"></script>
   </body>
 </html>

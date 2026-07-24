@@ -1,4 +1,5 @@
 FROM node:22-alpine AS builder
+RUN apk add --no-cache zip
 WORKDIR /app
 COPY package.json README.md LICENSE CONTRIBUTING.md SECURITY.md CODE_OF_CONDUCT.md ./
 COPY src ./src

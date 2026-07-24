@@ -27,7 +27,7 @@ It is a verified follower, not yet a BFT block proposer. Production consensus re
 ## Run directly
 
 ```sh
-AEL_URL=https://ael-network-production.up.railway.app \
+AEL_URL=https://ael-network.onrender.com \
 AEL_VALIDATOR_ID=<validator-id> AEL_ACTOR_ID=<validator-id> \
 AEL_ACTOR_KEY=/secure/validator-private.pem npm run node
 ```

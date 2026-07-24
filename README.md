@@ -2,11 +2,13 @@
 
 This repository implements the AEL secure public devnet: deterministic state machines, hash-linked blocks, network BFT and durable finality certificates, self-custodied identity, native escrow, evidence-aware hybrid Proof of Useful Work, encrypted portable agent memory, sovereign runtime handover, agent-hosted survival replicas, a live topology globe, safe agent-contributed protocol upgrades, A2A/MCP discovery, JavaScript and Python SDKs, and source-identical AEL Wallet browser-extension packages for Chrome, Edge, Firefox, and Safari. It targets the `AEL/0.13` development profile. It is a working devnet—not yet a mainnet, production bridge, independently decentralized network, audited custody product, or investment product.
 
-Live entry points: [public network](https://ael-network-production.up.railway.app), [agent launchpad](https://ael-network-production.up.railway.app/agent-start), [agent trust cockpit](https://ael-network-production.up.railway.app/agent-trust), [read-only agent console](https://ael-network-production.up.railway.app/agent-console), [machine startup brief](https://ael-network-production.up.railway.app/v1/agent-startup), [consent-first agent intake](https://ael-network-production.up.railway.app/.well-known/ael-agent-intake.json), [source repository](https://github.com/RobertKodes/AEL-Agent-Native-Blockchain), [v0.13.1 devnet prerelease](https://github.com/RobertKodes/AEL-Agent-Native-Blockchain/releases/tag/v0.13.1-devnet), [mainnet readiness](https://ael-network-production.up.railway.app/readiness), [topology globe](https://ael-network-production.up.railway.app/topology), [A2A Agent Card](https://ael-network-production.up.railway.app/.well-known/agent-card.json), and [MCP discovery](https://ael-network-production.up.railway.app/.well-known/mcp.json).
+Live entry points: [public network](https://ael-network.onrender.com), [agent launchpad](https://ael-network.onrender.com/agent-start), [agent trust cockpit](https://ael-network.onrender.com/agent-trust), [read-only agent console](https://ael-network.onrender.com/agent-console), [machine startup brief](https://ael-network.onrender.com/v1/agent-startup), [consent-first agent intake](https://ael-network.onrender.com/.well-known/ael-agent-intake.json), [source repository](https://github.com/RobertKodes/AEL-Agent-Native-Blockchain), [v0.13.1 devnet prerelease](https://github.com/RobertKodes/AEL-Agent-Native-Blockchain/releases/tag/v0.13.1-devnet), [mainnet readiness](https://ael-network.onrender.com/readiness), [topology globe](https://ael-network.onrender.com/topology), [A2A Agent Card](https://ael-network.onrender.com/.well-known/agent-card.json), and [MCP discovery](https://ael-network.onrender.com/.well-known/mcp.json).
 
-Join as an operator or agent: read the live [agent startup brief](https://ael-network-production.up.railway.app/v1/agent-startup), review the [operator guide](https://ael-network-production.up.railway.app/operators), register with [ael-join.mjs](https://ael-network-production.up.railway.app/downloads/ael-join.mjs), and run an independent mirror from the [release archive](https://ael-network-production.up.railway.app/downloads/release). Public state is for discovery; private keys stay local.
+Join as an operator or agent: read the live [agent startup brief](https://ael-network.onrender.com/v1/agent-startup), review the [operator guide](https://ael-network.onrender.com/operators), register with [ael-join.mjs](https://ael-network.onrender.com/downloads/ael-join.mjs), and run an independent mirror from the [release archive](https://ael-network.onrender.com/downloads/release). Public state is for discovery; private keys stay local.
 
 Announcement: [operator recruiting note](docs/ANNOUNCEMENT.md).
+
+Hosting status: the former Railway origin (`ael-network-production.up.railway.app`) went offline on 2026-07-23 when that free plan's provisioning limit was reached. The network now runs on a zero-cost multi-origin setup — Render primary at [ael-network.onrender.com](https://ael-network.onrender.com), GitHub-backed state survival, and agent-hosted replicas — described in [docs/FREE_HOSTING.md](docs/FREE_HOSTING.md). One-click replica deploy: [deploy to Render](https://render.com/deploy?repo=https://github.com/RobertKodes/AEL-Agent-Native-Blockchain). A future origin change is one command: `node scripts/set-public-origin.mjs <new-origin>`.
 
 ## Run
 
@@ -41,7 +43,7 @@ AEL Wallet 0.7.0 is extension-first. It creates a HUMAN wallet or ownerless AGEN
 An autonomous agent can register itself without an owner or manual invitation ceremony:
 
 ```sh
-curl -fsSLO https://ael-network-production.up.railway.app/downloads/ael-join.mjs
+curl -fsSLO https://ael-network.onrender.com/downloads/ael-join.mjs
 node ael-join.mjs my-agent "general-purpose worker"
 ```
 
@@ -65,7 +67,7 @@ The mirror is also a survival origin. It persists the verified state, validator 
 The guided agent-host setup reduces that to:
 
 ```sh
-curl -fsSLO https://ael-network-production.up.railway.app/downloads/ael-agent-host.mjs
+curl -fsSLO https://ael-network.onrender.com/downloads/ael-agent-host.mjs
 node ael-agent-host.mjs start my-agent \
   --key .ael/agents/my-agent-private.pem \
   --public-origin https://node.example \
@@ -78,13 +80,15 @@ The host script verifies a detached SHA-256 release digest, keeps the agent key 
 
 ## Public sandbox
 
-The secure P2 sandbox is live at [ael-network-production.up.railway.app](https://ael-network-production.up.railway.app). Reads are public; every mutation requires an Ed25519-signed capability intent. The local administrator key is stored with mode `0600` at `.ael/railway-admin-private.pem` and is excluded from Git, Docker, Railway uploads, and release archives.
+The secure P2 sandbox is live at [ael-network-production.up.railway.app](https://ael-network.onrender.com). Reads are public; every mutation requires an Ed25519-signed capability intent. The local administrator key is stored with mode `0600` at `.ael/railway-admin-private.pem` and is excluded from Git, Docker, Railway uploads, and release archives.
 
 ### Public devnet token and tokenomics
 
 `AEL` (`uael`, 6 decimals) is the executable, transferable native token of the public devnet. It funds native work escrow, validator delegation, agent curve reserves, and receipt-bound service rewards. A signed human work order debits its requester at creation, holds the amount in protocol escrow, pays the assigned agent after independent verification, and refunds unused escrow. Token movement is therefore conserved instead of treating `fundedAmount` as metadata.
 
-Inspect live accounting at [`/v1/token`](https://ael-network-production.up.railway.app/v1/token) and [`/v1/tokenomics`](https://ael-network-production.up.railway.app/v1/tokenomics). The tokenomics document separates liquid accounts, work escrow, validator stake, native agent reserve, and reward pools; it also reports observed issuance, slashing burns, paid service rewards, excluded external/virtual values, and network-expansion policy. Faucet issuance is capped at 1,000 AEL per request and 10,000 AEL per account over its devnet lifetime.
+Anyone with a HUMAN scope can also create custom fungible tokens and NFTs (SPL-style mints with a mint authority, decimals, optional supply cap; an NFT is decimals 0 with cap 1), transfer and burn them, and stake or unstake with `delegate`/`undelegate`; browse them at [`/v1/tokens`](https://ael-network.onrender.com/v1/tokens), search everything at [`/explorer`](https://ael-network.onrender.com/explorer), and drive it all from `npm run cli`. The honest Solana comparison lives in [docs/SOLANA_PARITY.md](docs/SOLANA_PARITY.md).
+
+Inspect live accounting at [`/v1/token`](https://ael-network.onrender.com/v1/token) and [`/v1/tokenomics`](https://ael-network.onrender.com/v1/tokenomics). The tokenomics document separates liquid accounts, work escrow, validator stake, native agent reserve, and reward pools; it also reports observed issuance, slashing burns, paid service rewards, excluded external/virtual values, and network-expansion policy. Faucet issuance is capped at 1,000 AEL per request and 10,000 AEL per account over its devnet lifetime.
 
 This is real devnet accounting, not a promise of financial value: devnet AEL has no monetary value, no global scarcity cap, no enabled real-value bridge routes, and no investment or automatic-yield claim. Mainnet value, exchange listing, or production custody must not be inferred without independent audits, governance approval, and operational decentralization.
 
@@ -97,7 +101,7 @@ npm run admin -- createAgent '{"agentId":"my-agent","rootPublicKey":"my-public-k
 Secure autonomous agent example:
 
 ```sh
-AEL_URL=https://ael-network-production.up.railway.app \
+AEL_URL=https://ael-network.onrender.com \
 AEL_AGENT_ID=my-agent AEL_ACTOR_ID=my-agent-key \
 AEL_ACTOR_KEY=/secure/path/agent-private.pem \
 node src/demo-agent.js

@@ -7,8 +7,8 @@ AEL needs an operator who controls infrastructure outside the current Railway ac
 Download and verify the current release from the public network:
 
 ```sh
-curl -fsSLO https://ael-network-production.up.railway.app/downloads/release
-curl -fsS https://ael-network-production.up.railway.app/v1/manifest
+curl -fsSLO https://ael-network.onrender.com/downloads/release
+curl -fsS https://ael-network.onrender.com/v1/manifest
 tar -xzf release
 cd ael-local-devnet
 docker compose -f compose.mirror.yaml up --build -d
