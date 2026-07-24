@@ -127,6 +127,14 @@ nav .nav-index:hover { border-color: var(--stamp); color: var(--stamp); }
 
 main { max-width: var(--max); margin: auto; padding: 0 22px; position: relative; }
 
+/* wallet journey stepper: the steps never disappear, they light up */
+.stepper { display: flex; gap: 1px; margin: 26px 0 0; border: 1px solid var(--line); background: var(--line); }
+.stepper span { flex: 1; padding: 11px 16px; background: var(--panel-deep); color: var(--ink-faint); font: 700 10px/1.2 var(--mono); letter-spacing: .09em; text-transform: uppercase; }
+.stepper span[data-step="1"] { background: var(--stamp); color: var(--field-deep); }
+.stepper[data-state="ready"] span { background: var(--stamp); color: var(--field-deep); }
+.step-hint { margin: 18px 0 0; padding: 13px 16px; border: 1px dashed var(--line-bright); color: var(--ink-dim); font-size: 13px; }
+.step-hint::before { content: "NEXT — "; font: 700 10px var(--mono); letter-spacing: .1em; color: var(--stamp); }
+
 /* orientation strip: where you are and what this sheet is for */
 .crumbs {
   display: flex;
