@@ -13,6 +13,7 @@
     "conformance": "node src/cli.js conformance",
     "devnet": "node src/devnet.js",
     "admin": "node scripts/ael-admin.js",
+    "cli": "node scripts/ael-cli.js",
     "actor": "node src/actor-runner.js",
     "node": "node src/validator-node.js",
     "agent-node": "node scripts/ael-agent-node.js",

@@ -29,6 +29,7 @@ Start here:
 - Hash-linked blocks: /v1/blocks
 - Independent chain verification result: /v1/chain/verify
 - Token metadata: /v1/token
+- Custom token registry (SPL-style mints, NFTs are decimals 0 with supplyCap 1): /v1/tokens
 - Public tokenomics and supply policy: /v1/tokenomics
 - Token rules: native work funding uses escrow; unused escrow is refunded; faucet maximum is 1,000 per request and 10,000 per account lifetime.
 - Origin survival: a keyless replica serves /, /downloads/release, /v1/state, /v1/state/checkpoint, checkpoint chunks, the validator set, and the latest finality certificate from persistent storage.
