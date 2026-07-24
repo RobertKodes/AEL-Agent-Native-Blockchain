@@ -1150,6 +1150,242 @@
             "contentEncoding": "base64"
           }
         }
+      },
+      "SubmitWorkResultPayload": {
+        "type": "object",
+        "required": [
+          "orderId",
+          "agentId",
+          "deliverableHash"
+        ],
+        "properties": {
+          "orderId": {
+            "type": "string"
+          },
+          "agentId": {
+            "type": "string"
+          },
+          "deliverableHash": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "object",
+            "properties": {
+              "schema": {
+                "const": "AEL-WORK-EVIDENCE/1"
+              },
+              "proofType": {
+                "type": "string"
+              },
+              "artifactHash": {
+                "type": "string"
+              },
+              "uri": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          }
+        }
+      },
+      "SendAgentMessagePayload": {
+        "type": "object",
+        "required": [
+          "schema",
+          "messageId",
+          "conversationId",
+          "agentId",
+          "fromAgentId",
+          "toAgentId",
+          "sequence",
+          "kind",
+          "contentEncoding",
+          "contentHash",
+          "expiresAtHeight"
+        ],
+        "properties": {
+          "schema": {
+            "const": "AEL-AGENT-MESSAGE/1"
+          },
+          "messageId": {
+            "type": "string"
+          },
+          "conversationId": {
+            "type": "string"
+          },
+          "agentId": {
+            "type": "string",
+            "description": "must equal fromAgentId"
+          },
+          "fromAgentId": {
+            "type": "string"
+          },
+          "toAgentId": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "per conversation+sender, strictly previous+1"
+          },
+          "kind": {
+            "enum": [
+              "REQUEST",
+              "RESPONSE",
+              "EVENT"
+            ]
+          },
+          "contentEncoding": {
+            "const": "application/ael-encrypted+json"
+          },
+          "contentHash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "envelopeUri": {
+            "type": "string",
+            "format": "uri"
+          },
+          "replyTo": {
+            "type": "string"
+          },
+          "expiresAtHeight": {
+            "type": "integer",
+            "description": "<= current height + 5000"
+          }
+        }
+      },
+      "CommitMemoryCheckpointPayload": {
+        "type": "object",
+        "required": [
+          "agentId",
+          "checkpointId",
+          "generation",
+          "parentCheckpointHash",
+          "checkpointHash",
+          "stateRoot",
+          "chunksRoot",
+          "serializer",
+          "encryption",
+          "byteLength",
+          "chunkCount",
+          "barrier",
+          "storageReplicas"
+        ],
+        "properties": {
+          "agentId": {
+            "type": "string"
+          },
+          "checkpointId": {
+            "type": "string"
+          },
+          "generation": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "previous generation + 1"
+          },
+          "parentCheckpointHash": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null for generation 1, else previous checkpointHash"
+          },
+          "checkpointHash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "stateRoot": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "chunksRoot": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "serializer": {
+            "const": "AEL-PORTABLE-MEMORY/1"
+          },
+          "encryption": {
+            "enum": [
+              "AES-256-GCM",
+              "XCHACHA20-POLY1305"
+            ]
+          },
+          "byteLength": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "chunkCount": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "barrier": {
+            "type": "object",
+            "required": [
+              "lastInputSequence",
+              "lastOutputSequence"
+            ],
+            "properties": {
+              "lastInputSequence": {
+                "type": "integer"
+              },
+              "lastOutputSequence": {
+                "type": "integer"
+              }
+            }
+          },
+          "storageReplicas": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "required": [
+                "providerId",
+                "uri",
+                "bundleHash"
+              ],
+              "properties": {
+                "providerId": {
+                  "type": "string"
+                },
+                "uri": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "bundleHash": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ExtendAgentCapabilitiesPayload": {
+        "type": "object",
+        "required": [
+          "agentId",
+          "actions"
+        ],
+        "properties": {
+          "agentId": {
+            "type": "string"
+          },
+          "actions": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            },
+            "description": "subset of the devnet agent policy set"
+          }
+        }
       }
     }
   }

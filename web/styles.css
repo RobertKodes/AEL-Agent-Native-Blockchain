@@ -109,6 +109,8 @@ nav {
 nav a { padding: 4px 2px; border-bottom: 1px solid transparent; }
 nav a:hover { color: var(--ink); }
 nav a.active { color: var(--pencil); border-bottom-color: var(--pencil); }
+nav .nav-index { color: var(--stamp); border: 1px dashed var(--line-bright); padding: 4px 7px; }
+nav .nav-index:hover { border-color: var(--stamp); color: var(--stamp); }
 
 .live {
   font: 10px/1 var(--mono);
