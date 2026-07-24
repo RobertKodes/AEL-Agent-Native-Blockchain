@@ -1,0 +1,75 @@
+name: Network heartbeat
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: network-heartbeat
+  cancel-in-progress: false
+
+jobs:
+  heartbeat:
+    name: Ping origins and back up state
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Ping public origins
+        run: |
+          node --input-type=module - <<'EOF'
+          import { readFileSync } from 'node:fs';
+          const { primary, origins } = JSON.parse(readFileSync('ops/public-origins.json', 'utf8'));
+          const targets = [...new Set([primary, ...origins].filter(Boolean))];
+          if (!targets.length) { console.log('No public origins configured; nothing to ping.'); process.exit(0); }
+          for (const origin of targets) {
+            const url = `${origin.replace(/\/$/, '')}/health`;
+            try {
+              const response = await fetch(url, { signal: AbortSignal.timeout(60000) });
+              console.log(`${url} -> HTTP ${response.status}`);
+            } catch (error) {
+              console.log(`${url} -> UNREACHABLE (${error.name})`);
+            }
+          }
+          EOF
+      - name: Back up primary state to the state-backup branch
+        run: |
+          set -eu
+          PRIMARY=$(node -pe "JSON.parse(require('fs').readFileSync('ops/public-origins.json','utf8')).primary ?? ''")
+          if [ -z "$PRIMARY" ]; then
+            echo "No primary origin configured; skipping backup."
+            exit 0
+          fi
+          PRIMARY="${PRIMARY%/}"
+          if ! curl -fsS -m 90 "$PRIMARY/v1/state" -o devnet-state.json; then
+            echo "Primary state unavailable; skipping backup."
+            exit 0
+          fi
+          HEIGHT=$(node -pe "try{const s=JSON.parse(require('fs').readFileSync('devnet-state.json','utf8'));Number.isInteger(s.height)?s.height:-1}catch{-1}")
+          if [ "$HEIGHT" -lt 1 ]; then
+            echo "No committed blocks to back up yet (height $HEIGHT); skipping."
+            exit 0
+          fi
+          git fetch origin state-backup:refs/remotes/origin/state-backup 2>/dev/null || true
+          PARENT=$(git rev-parse -q --verify refs/remotes/origin/state-backup || true)
+          if [ -n "$PARENT" ]; then
+            PREVIOUS=$( (git show "$PARENT:devnet-state.json" 2>/dev/null || echo '{}') | node -pe "try{JSON.parse(require('fs').readFileSync(0,'utf8')).height??0}catch{0}")
+            if [ "$HEIGHT" -lt "$PREVIOUS" ]; then
+              echo "Live height $HEIGHT is below backed-up height $PREVIOUS; refusing to overwrite the newer backup."
+              exit 0
+            fi
+            if [ "$HEIGHT" -eq "$PREVIOUS" ]; then
+              echo "Height unchanged at $HEIGHT; skipping commit."
+              exit 0
+            fi
+          fi
+          git config user.name "ael-heartbeat"
+          git config user.email "heartbeat@users.noreply.github.com"
+          BLOB=$(git hash-object -w devnet-state.json)
+          TREE=$(printf '100644 blob %s\tdevnet-state.json\n' "$BLOB" | git mktree)
+          COMMIT=$(git commit-tree "$TREE" ${PARENT:+-p "$PARENT"} -m "State backup at height $HEIGHT")
+          git push origin "$COMMIT:refs/heads/state-backup"
+          echo "Backed up state at height $HEIGHT."

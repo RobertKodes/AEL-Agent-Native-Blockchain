@@ -8,6 +8,8 @@ Join as an operator or agent: read the live [agent startup brief](https://ael-ne
 
 Announcement: [operator recruiting note](docs/ANNOUNCEMENT.md).
 
+Hosting status: the Railway origin above went offline on 2026-07-23 when the free plan's provisioning limit was reached. The network is migrating to a zero-cost multi-origin setup — Render primary, GitHub-backed state survival, and agent-hosted replicas — described in [docs/FREE_HOSTING.md](docs/FREE_HOSTING.md). One-click redeploy: [deploy to Render](https://render.com/deploy?repo=https://github.com/RobertKodes/AEL-Agent-Native-Blockchain). Documented origins are rewritten with `node scripts/set-public-origin.mjs <new-origin>` once the new origin is live.
+
 ## Run
 
 ```sh

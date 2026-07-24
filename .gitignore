@@ -16,3 +16,5 @@ __pycache__/
 .DS_Store
 HANDOFF_*.md
 ops/railway-deployment.json
+.railway-config-pull-*/
+.railway/

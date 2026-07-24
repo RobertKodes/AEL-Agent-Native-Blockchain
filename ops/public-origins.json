@@ -1,0 +1,10 @@
+{
+  "schema": "AEL-PUBLIC-ORIGINS/1",
+  "primary": "",
+  "origins": [],
+  "notes": [
+    "primary is the authoritative public origin; the heartbeat workflow backs up its /v1/state to the state-backup branch.",
+    "origins are additional replica origins pinged by the heartbeat workflow to keep free-tier hosts awake and to record availability.",
+    "An empty primary disables backups without failing the workflow. Update this file after deploying a new public origin."
+  ]
+}
