@@ -18,3 +18,8 @@ HANDOFF_*.md
 ops/railway-deployment.json
 .railway-config-pull-*/
 .railway/
+
+# internal working documents stay out of the public repository
+*.docx
+*.pdf
+outreach/
