@@ -734,6 +734,8 @@ footer strong { font: 600 11px/1.4 var(--mono); color: var(--ink); overflow-wrap
 footer span { font: 400 10.5px/1.5 var(--mono); color: var(--ink-dim); overflow-wrap: anywhere; }
 footer .c-sheet strong { color: var(--stamp); }
 
+[data-x-blocks] tr, [data-x-activity] tr, [data-x-token-rows] tr { cursor: pointer; }
+
 /* ---------- motion ---------- */
 
 @keyframes sheet-in {
